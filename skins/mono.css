@@ -1,0 +1,102 @@
+/* SKIN — mono-glass.
+ *
+ * The house look. Ported from ~/.claude/design-system/mono-glass, which is the
+ * same system the portfolio at websites/koushik dev portfolio runs on, so a
+ * shop dropped into that site inherits it rather than sitting next to it.
+ *
+ * THE RULE: every neutral is R=G=B exactly. No warm greys, no cool greys, no
+ * "slightly blue black". It is checkable by regex, which is the point — a hue
+ * that cannot leak back in six months is worth more than one that merely has
+ * not leaked in yet.
+ *
+ * There is no accent colour. Black and white carries the premium read on
+ * gradient texture and white glow alone. That is a harder constraint than it
+ * sounds: with no colour to fall back on, a weak layout has nowhere to hide.
+ *
+ * Fonts: Syne for display, Inter for body. Link them from the host page —
+ * @import inside a stylesheet blocks rendering until it resolves, and the
+ * fallback stack below is what shows while they load.
+ */
+
+:root {
+  /* ── surfaces ─────────────────────────────────────────────────────────── */
+  --bg: #050505;
+  --surface: #101010;
+  --surface-2: #161616;
+  --border: #262626;
+
+  /* ── brand: white IS the accent ───────────────────────────────────────── */
+  --brand: #ffffff;
+  --brand-hover: #e8e8e8;
+  --brand-glow: #ffffff;
+  --brand-text: #050505;
+
+  /* ── type ─────────────────────────────────────────────────────────────── */
+  --text: #f5f5f5;
+  --text-muted: #9e9e9e;
+
+  /* Status is a brightness rank, not a hue — mono-glass §Banned. An error is
+     the brightest thing in its block and carries a rule beside it; that reads
+     as urgent without a red that would be the only colour on the page. */
+  --danger: #ffffff;
+
+  /* ── shape and type ───────────────────────────────────────────────────── */
+  --radius: 10px;
+  --radius-lg: 14px;
+  --font-display: "Syne", "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ── material: glass level 2, the default card surface ────────────────────
+     A surface reads as glass from three things at once: a gradient brighter at
+     the top than the bottom, a hairline catching light on its upper edge, and a
+     shadow that grounds it. Any one alone just looks grey. */
+  --surface-fill: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.022) 42%,
+    rgba(255, 255, 255, 0.012) 100%
+  );
+  --rim: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+
+  /* Glow is white only, wide and low-alpha. A tight bright glow is the single
+     fastest way to make this system look cheap. */
+  --glow: 0 0 34px rgba(255, 255, 255, 0.12);
+
+  /* ── texture: the mechanism, not the decoration ───────────────────────────
+     Wide soft radial at 3.5% white, plus a fine sheen across the top. This is
+     what makes pure black read premium rather than flat. If a page on this skin
+     looks cheap, the answer is more field and more grain — never a colour. */
+  --field: radial-gradient(120% 80% at 12% -10%, rgba(255, 255, 255, 0.035) 0%, transparent 60%),
+    radial-gradient(90% 60% at 100% 0%, rgba(255, 255, 255, 0.022) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0%, transparent 40%);
+
+  /* Inline SVG feTurbulence, so the grain costs no image request. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --grain-opacity: 0.025;
+
+  /* Product photography is graded to match. The masters in assets/catalog are
+     already monochrome; this holds the line for anything an operator uploads
+     from the admin panel later, which will not be. */
+  --img-filter: grayscale(1) contrast(1.06) brightness(0.94);
+  --img-filter-hover: grayscale(1) contrast(1.12) brightness(1);
+
+  /* ── motion ───────────────────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 180ms;
+  --dur-2: 260ms;
+  --dur-3: 700ms;
+}
+
+/* Headless Chrome does not composite backdrop-filter, and several renderers
+ * skip it. Glass that depends on blur alone screenshots as a transparent hole,
+ * which has already caught this project once. The fill above carries the
+ * surface on its own; blur here is a bonus for the browsers that do it. */
+@supports (backdrop-filter: blur(1px)) {
+  .j7-card,
+  .j7-confirm,
+  .j7-fatal,
+  .j7-catnav-link {
+    backdrop-filter: blur(22px) saturate(150%);
+  }
+}

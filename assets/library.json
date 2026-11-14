@@ -1,0 +1,230 @@
+{
+  "generated": "2026-08-23",
+  "images": [
+    {
+      "slot": "membership-1-month",
+      "file": "assets/catalog/membership-1-month.webp",
+      "thumb": "assets/catalog/membership-1-month-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Dumbbells on rack 20180112.jpg",
+      "author": "Santeri Viinamäki",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Dumbbells_on_rack_20180112.jpg"
+    },
+    {
+      "slot": "membership-3-months",
+      "file": "assets/catalog/membership-3-months.webp",
+      "thumb": "assets/catalog/membership-3-months-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Racked Overhead Kettlebell Squat 4 Side-on Full",
+      "author": "Taco fleur",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=63761279"
+    },
+    {
+      "slot": "membership-6-months",
+      "file": "assets/catalog/membership-6-months.webp",
+      "thumb": "assets/catalog/membership-6-months-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Weight room in Itäkylä 20180112",
+      "author": "Santeri Viinamäki",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=65493754"
+    },
+    {
+      "slot": "membership-1-year",
+      "file": "assets/catalog/membership-1-year.webp",
+      "thumb": "assets/catalog/membership-1-year-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Weight plates",
+      "author": "Cobragym1",
+      "licence": "CC BY-SA 3.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=31572768"
+    },
+    {
+      "slot": "pt-1-month",
+      "file": "assets/catalog/pt-1-month.webp",
+      "thumb": "assets/catalog/pt-1-month-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Fitness enthusiast lifts vibrant dumbbell during home workout.jpg",
+      "author": "Shixart1985",
+      "licence": "CC BY 2.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Fitness_enthusiast_lifts_vibrant_dumbbell_during_home_workout.jpg"
+    },
+    {
+      "slot": "pt-3-months",
+      "file": "assets/catalog/pt-3-months.webp",
+      "thumb": "assets/catalog/pt-3-months-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Personal training dumbbell chest press.jpg",
+      "author": "PTPioneer",
+      "licence": "CC BY 2.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Personal_training_dumbbell_chest_press.jpg"
+    },
+    {
+      "slot": "whey-protein",
+      "file": "assets/catalog/whey-protein.webp",
+      "thumb": "assets/catalog/whey-protein-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Protein Powder in a Blender Bottle (44547157820).jpg",
+      "author": "Tony Webster from Minneapolis, Minnesota, United States",
+      "licence": "CC BY 2.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Protein_Powder_in_a_Blender_Bottle_(44547157820).jpg"
+    },
+    {
+      "slot": "creatine",
+      "file": "assets/catalog/creatine.webp",
+      "thumb": "assets/catalog/creatine-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Oil White",
+      "author": "Dana Tentis",
+      "licence": "CC CC0 1.0",
+      "page": "https://stocksnap.io/photo/oil-white-BXII7UT7EX"
+    },
+    {
+      "slot": "oats",
+      "file": "assets/catalog/oats.webp",
+      "thumb": "assets/catalog/oats-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Rolled oats 2",
+      "author": "Yonygg",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=48539164"
+    },
+    {
+      "slot": "peanut-butter",
+      "file": "assets/catalog/peanut-butter.webp",
+      "thumb": "assets/catalog/peanut-butter-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Peanut butter glass.jpg",
+      "author": "Shisma",
+      "licence": "CC BY 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Peanut_butter_glass.jpg"
+    },
+    {
+      "slot": "multivitamin",
+      "file": "assets/catalog/multivitamin.webp",
+      "thumb": "assets/catalog/multivitamin-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "B vitamin supplement tablets.jpg",
+      "author": "Ragesoss",
+      "licence": "CC BY-SA 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File:B_vitamin_supplement_tablets.jpg"
+    },
+    {
+      "slot": "shaker",
+      "file": "assets/catalog/shaker.webp",
+      "thumb": "assets/catalog/shaker-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Wikipedia waterbottle and sports scarves 01.jpg",
+      "author": "Joe Sutherland",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Wikipedia_waterbottle_and_sports_scarves_01.jpg"
+    },
+    {
+      "slot": "tee",
+      "file": "assets/catalog/tee.webp",
+      "thumb": "assets/catalog/tee-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "US Navy 101122-N-7948R-093 Engineman 3rd Class Joseph Rocca performs dumbbell curls in the gym aboard the amphibious dock landing ship USS Pearl Ha.jpg",
+      "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Michael Russell",
+      "licence": "Public domain",
+      "page": "https://commons.wikimedia.org/wiki/File:US_Navy_101122-N-7948R-093_Engineman_3rd_Class_Joseph_Rocca_performs_dumbbell_curls_in_the_gym_aboard_the_amphibious_dock_landing_ship_USS_Pearl_Ha.jpg"
+    },
+    {
+      "slot": "gym-bag",
+      "file": "assets/catalog/gym-bag.webp",
+      "thumb": "assets/catalog/gym-bag-thumb.webp",
+      "bytes": 200062,
+      "width": 1000,
+      "height": 750,
+      "title": "Cricket kit bag at Epping Foresters Cricket Club 3.jpg",
+      "author": "Acabashi",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Cricket_kit_bag_at_Epping_Foresters_Cricket_Club_3.jpg"
+    },
+    {
+      "slot": "straps",
+      "file": "assets/catalog/straps.webp",
+      "thumb": "assets/catalog/straps-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Lifting Straps",
+      "author": "QuadlingualEditor",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=83500796"
+    },
+    {
+      "slot": "day-pass",
+      "file": "assets/catalog/day-pass.webp",
+      "thumb": "assets/catalog/day-pass-thumb.webp",
+      "width": 1000,
+      "height": 750,
+      "title": "Treadmills.webp",
+      "author": "Wikideas1",
+      "licence": "CC0",
+      "page": "https://commons.wikimedia.org/wiki/File:Treadmills.webp"
+    },
+    {
+      "slot": "workshop",
+      "file": "assets/catalog/workshop.webp",
+      "thumb": "assets/catalog/workshop-thumb.webp",
+      "bytes": 167236,
+      "width": 1000,
+      "height": 750,
+      "title": "Aerobics session by dettol cool at unilorin stadium 11.jpg",
+      "author": "Godstime Elijah",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Aerobics_session_by_dettol_cool_at_unilorin_stadium_11.jpg"
+    },
+    {
+      "slot": "hero",
+      "file": "assets/catalog/hero.webp",
+      "thumb": "assets/catalog/hero-thumb.webp",
+      "bytes": 191038,
+      "width": 1800,
+      "height": 1013,
+      "title": "File:LSU Football Operations Center Weight Room - Interior.jpg",
+      "author": "Spatms",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/w/index.php?curid=57869850"
+    },
+    {
+      "slot": "gym-floor",
+      "file": "assets/catalog/gym-floor.webp",
+      "thumb": "assets/catalog/gym-floor-thumb.webp",
+      "bytes": 136968,
+      "width": 1200,
+      "height": 600,
+      "title": "Local Gym equipment.jpg",
+      "author": "Alvinategyeka",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Local_Gym_equipment.jpg"
+    },
+    {
+      "slot": "trainer",
+      "file": "assets/catalog/trainer.webp",
+      "thumb": "assets/catalog/trainer-thumb.webp",
+      "bytes": 188838,
+      "width": 1200,
+      "height": 600,
+      "title": "Barbells.jpg",
+      "author": "SAgbley",
+      "licence": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File:Barbells.jpg"
+    }
+  ]
+}

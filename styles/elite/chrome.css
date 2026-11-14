@@ -1,0 +1,242 @@
+/* ============================================================
+   chrome.css — the miniature product UI drawn by js/chrome.js.
+
+   Every neutral is R=G=B. No backdrop-filter (the reference has
+   zero). Depth comes from stacked flat tones + one hairline, the
+   same way the page sheet does it.
+   ============================================================ */
+
+.frame.has-chrome > .art { opacity: .34; }
+.frame.has-chrome { overflow: clip; }
+
+.ch {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  font-family: var(--e-font-mono, "Geist Mono", ui-monospace, monospace);
+  color: #0f0f0f;
+  pointer-events: none;
+  container-type: inline-size;
+}
+.frame--dark .ch, .ui .ch, .bh__media .ch { color: #ededed; }
+
+.ch--pad    { padding: 14px; gap: 9px; }
+.ch--center { align-items: center; justify-content: center; gap: 18px; }
+.ch--app    { flex-direction: row; padding: 0; }
+
+/* tone helpers — one ink, many opacities, never a second hue */
+.ch i, .ch b, .ch span, .ch div { box-sizing: border-box; }
+
+/* ---------- 1. segmented control ---------- */
+.ch-seg {
+  display: flex; gap: 2px; padding: 3px; border-radius: 10px;
+  background: rgba(237,237,237,.10);
+  box-shadow: inset 0 0 0 1px rgba(237,237,237,.09);
+}
+.frame:not(.frame--dark) .ch-seg { background: rgba(15,15,15,.06); box-shadow: inset 0 0 0 1px rgba(15,15,15,.07); }
+.ch-seg__i {
+  font-size: 11px; letter-spacing: .01em; padding: 6px 13px; border-radius: 8px;
+  opacity: .45; transition: opacity .32s ease, background-color .32s ease;
+}
+.ch-seg__i.is-on { opacity: 1; background: rgba(237,237,237,.14); }
+.frame:not(.frame--dark) .ch-seg__i.is-on { background: rgba(15,15,15,.09); }
+
+.ch-drop { display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: .5; }
+.ch-drop__k { font-size: 11px; letter-spacing: .02em; }
+.ch-drop__v { font-size: 10px; letter-spacing: .16em; opacity: .6; }
+
+/* a dropped asset pinned top-left */
+.ch-chip {
+  position: absolute; top: 14px; left: 14px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 11px 7px 7px; border-radius: 10px;
+  background: rgba(237,237,237,.09); box-shadow: inset 0 0 0 1px rgba(237,237,237,.09);
+}
+.frame:not(.frame--dark) .ch-chip { background: rgba(15,15,15,.06); box-shadow: inset 0 0 0 1px rgba(15,15,15,.07); }
+.ch-chip__m { width: 26px; height: 26px; border-radius: 6px; background: currentColor; opacity: .26; flex: none; }
+.ch-chip__t b { display: block; font-size: 9.5px; font-weight: 400; }
+.ch-chip__t span { display: block; font-size: 8.5px; opacity: .45; }
+
+/* the ingest list along the floor */
+.ch-ing {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ch-ing__r {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 8px;
+  background: rgba(237,237,237,.06); box-shadow: inset 0 0 0 1px rgba(237,237,237,.06);
+  opacity: calc(1 - var(--i, 0) * .22);
+}
+.frame:not(.frame--dark) .ch-ing__r { background: rgba(15,15,15,.045); box-shadow: inset 0 0 0 1px rgba(15,15,15,.05); }
+.ch-ing__d { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .5; flex: none; }
+.ch-ing__n { font-size: 9.5px; opacity: .8; }
+.ch-ing__v { margin-left: auto; font-size: 9px; opacity: .42; }
+
+/* ---------- 2. transport / layers / filmstrip ---------- */
+.ch-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 10px;
+  background: rgba(237,237,237,.07); box-shadow: inset 0 0 0 1px rgba(237,237,237,.08);
+}
+.frame:not(.frame--dark) .ch-bar { background: rgba(15,15,15,.05); box-shadow: inset 0 0 0 1px rgba(15,15,15,.06); }
+.ch-bar__play {
+  width: 20px; height: 20px; border-radius: 6px; flex: none;
+  background: rgba(237,237,237,.16); position: relative;
+}
+.frame:not(.frame--dark) .ch-bar__play { background: rgba(15,15,15,.12); }
+.ch-bar__play::before, .ch-bar__play::after {
+  content: ""; position: absolute; top: 6px; width: 2px; height: 8px;
+  background: currentColor; opacity: .8;
+}
+.ch-bar__play::before { left: 7px; } .ch-bar__play::after { left: 11px; }
+.ch-bar__tc  { font-size: 10.5px; letter-spacing: .01em; opacity: .82; }
+.ch-bar__dur { margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 10px; opacity: .6; }
+.ch-bar__dur b {
+  font-weight: 400; padding: 2px 6px; border-radius: 5px;
+  background: rgba(237,237,237,.14); opacity: 1;
+}
+.frame:not(.frame--dark) .ch-bar__dur b { background: rgba(15,15,15,.10); }
+
+.ch-rule { display: flex; align-items: center; gap: 8px; padding: 0 2px; }
+.ch-rule__l { font-size: 9px; opacity: .38; flex: none; }
+.ch-rule__t { flex: 1; display: flex; justify-content: space-between; align-items: flex-end; height: 9px; }
+.ch-rule__t i { width: 1px; height: 4px; background: currentColor; opacity: .22; }
+.ch-rule__t i.is-big { height: 9px; opacity: .34; }
+
+.ch-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px; border-radius: 9px;
+  background: rgba(237,237,237,.06); box-shadow: inset 0 0 0 1px rgba(237,237,237,.07);
+}
+.frame:not(.frame--dark) .ch-row { background: rgba(15,15,15,.045); box-shadow: inset 0 0 0 1px rgba(15,15,15,.055); }
+.ch-row__ic {
+  width: 18px; height: 18px; flex: none; border-radius: 5px; font-size: 9px;
+  display: grid; place-items: center;
+  background: rgba(237,237,237,.13);
+}
+.frame:not(.frame--dark) .ch-row__ic { background: rgba(15,15,15,.10); }
+.ch-row__n { font-size: 10.5px; opacity: .8; white-space: nowrap; }
+.ch-row__t { margin-left: auto; width: 38%; height: 4px; border-radius: 2px; background: rgba(237,237,237,.10); overflow: hidden; }
+.frame:not(.frame--dark) .ch-row__t { background: rgba(15,15,15,.09); }
+.ch-row__t i { display: block; height: 100%; background: currentColor; opacity: .5; }
+
+.ch-film { display: flex; gap: 2px; margin-top: auto; height: 34px; border-radius: 7px; overflow: clip; }
+.ch-film i { flex: 1; background: currentColor; opacity: var(--o, .16); }
+
+.ch-head {
+  position: absolute; top: 12px; bottom: 12px; width: 1px;
+  left: calc(14px + var(--u, 0) * (100% - 28px));
+  background: currentColor; opacity: .75;
+}
+
+/* ---------- 3. asset grid + sliders ---------- */
+.ch-hd { display: flex; align-items: flex-start; gap: 10px; }
+.ch-hd__l b { display: block; font-size: 11px; font-weight: 400; }
+.ch-hd__l span { display: block; font-size: 9.5px; opacity: .48; margin-top: 2px; }
+.ch-hd__r { margin-left: auto; display: flex; gap: 5px; }
+.ch-ico { width: 15px; height: 15px; border-radius: 4px; background: rgba(237,237,237,.13); }
+.frame:not(.frame--dark) .ch-ico { background: rgba(15,15,15,.10); }
+
+.ch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.ch-grid__c { aspect-ratio: 4 / 3; border-radius: 6px; background: currentColor; opacity: var(--o, .18); }
+.ch-grid__c.is-add {
+  background: none; opacity: 1; display: grid; place-items: center; font-size: 13px;
+  box-shadow: inset 0 0 0 1px rgba(237,237,237,.16); color: inherit;
+}
+.frame:not(.frame--dark) .ch-grid__c.is-add { box-shadow: inset 0 0 0 1px rgba(15,15,15,.14); }
+.ch-grid__c.is-add span { opacity: .5; }
+
+.ch-btns { display: flex; gap: 5px; }
+.ch-btn {
+  flex: 1; text-align: center; font-size: 9.5px; padding: 6px 0; border-radius: 7px;
+  background: rgba(237,237,237,.09); opacity: .78;
+}
+.frame:not(.frame--dark) .ch-btn { background: rgba(15,15,15,.07); }
+
+.ch-sl {
+  position: relative; display: flex; align-items: center;
+  height: 30px; border-radius: 8px; overflow: clip;
+  background: rgba(237,237,237,.07);
+}
+.frame:not(.frame--dark) .ch-sl { background: rgba(15,15,15,.06); }
+.ch-sl__f { position: absolute; inset: 0 auto 0 0; background: currentColor; opacity: .11; }
+.ch-sl__lab { position: relative; display: flex; align-items: baseline; gap: 4px; padding-left: 9px; }
+.ch-sl__lab b { font-size: 9.5px; font-weight: 400; opacity: .85; }
+.ch-sl__lab i { font-size: 8.5px; opacity: .42; }
+.ch-sl__k {
+  position: relative; margin-left: auto; margin-right: 9px;
+  width: 7px; height: 7px; background: currentColor; opacity: .3; transform: rotate(45deg);
+}
+.ch-sl__k.is-on { opacity: .8; }
+
+/* ---------- 4. app shell ---------- */
+.ch--app .ch-sb {
+  width: 178px; flex: none; padding: 14px 10px;
+  display: flex; flex-direction: column; gap: 1px;
+  box-shadow: inset -1px 0 0 rgba(237,237,237,.07);
+}
+.ch-sb__logo { font-family: var(--e-font-sans, Geist, system-ui); font-size: 13px; padding: 0 8px 14px; letter-spacing: -.01em; }
+.ch-sb__h { font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; opacity: .34; padding: 11px 8px 5px; }
+.ch-sb__i {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; padding: 5px 8px; border-radius: 6px; opacity: .68;
+}
+.ch-sb__i.is-on { background: rgba(237,237,237,.10); opacity: 1; }
+.ch-sb__d { width: 11px; height: 11px; border-radius: 3px; background: currentColor; opacity: .4; flex: none; }
+.ch-sb__me {
+  margin-top: auto; display: flex; align-items: center; gap: 8px;
+  padding: 8px; border-radius: 8px; background: rgba(237,237,237,.07);
+}
+.ch-sb__av { width: 22px; height: 22px; border-radius: 6px; background: currentColor; opacity: .32; flex: none; }
+.ch-sb__mt b { display: block; font-size: 10px; font-weight: 400; }
+.ch-sb__mt span { display: block; font-size: 9px; opacity: .45; }
+
+.ch--app .ch-cn { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+.ch-cn__crumb { font-size: 10.5px; opacity: .6; margin-bottom: 6px; }
+.ch-cn__h { display: flex; align-items: baseline; gap: 9px; margin-top: 8px; }
+.ch-cn__h b { font-family: var(--e-font-sans, Geist, system-ui); font-size: 13px; font-weight: 400; letter-spacing: -.01em; }
+.ch-cn__h span { font-size: 9.5px; opacity: .42; }
+.ch-cn__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ch-cn__c { border-radius: 9px; padding: 8px; background: rgba(237,237,237,.06); display: flex; flex-direction: column; gap: 7px; }
+.ch-cn__m { height: 74px; border-radius: 6px; background: currentColor; opacity: var(--o, .18); }
+.ch-cn__l b { display: block; font-size: 9.5px; font-weight: 400; }
+.ch-cn__l span { display: block; font-size: 8.5px; opacity: .42; margin-top: 1px; }
+
+/* ---------- 5. render queue ---------- */
+.ch-qh { font-size: 10.5px; opacity: .55; letter-spacing: .02em; margin-bottom: 3px; }
+.ch-q {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 10px; border-radius: 9px;
+  background: rgba(237,237,237,.06); box-shadow: inset 0 0 0 1px rgba(237,237,237,.07);
+}
+.frame:not(.frame--dark) .ch-q { background: rgba(15,15,15,.045); box-shadow: inset 0 0 0 1px rgba(15,15,15,.055); }
+.ch-q__n { font-size: 10px; opacity: .82; white-space: nowrap; }
+.ch-q__t { margin-left: auto; flex: 1; max-width: 46%; height: 3px; border-radius: 2px; background: rgba(237,237,237,.10); overflow: hidden; }
+.frame:not(.frame--dark) .ch-q__t { background: rgba(15,15,15,.09); }
+.ch-q__t i { display: block; height: 100%; background: currentColor; opacity: .55; }
+.ch-q__p { font-size: 9px; opacity: .45; width: 30px; text-align: right; flex: none; }
+
+.ch-qf {
+  margin-top: auto; display: flex; align-items: center; gap: 10px;
+  padding: 11px 10px 2px; box-shadow: inset 0 1px 0 rgba(237,237,237,.07);
+}
+.frame:not(.frame--dark) .ch-qf { box-shadow: inset 0 1px 0 rgba(15,15,15,.07); }
+.ch-qf__who { display: flex; }
+.ch-qf__av {
+  width: 18px; height: 18px; border-radius: 50%; background: currentColor;
+  opacity: calc(.34 - var(--i, 0) * .07);
+  margin-left: calc(var(--i, 0) * -6px);
+  box-shadow: 0 0 0 2px var(--e-n-900, #0a0a0a);
+}
+.frame:not(.frame--dark) .ch-qf__av { box-shadow: 0 0 0 2px var(--card, #ededed); }
+.ch-qf__n { font-size: 9.5px; opacity: .6; }
+.ch-qf__t { margin-left: auto; font-size: 9.5px; opacity: .42; }
+
+/* ---------- narrow plates drop the finest detail ---------- */
+@container (max-width: 340px) {
+  .ch-rule, .ch-row__t, .ch-cn__l span { display: none; }
+  .ch--pad { padding: 11px; gap: 7px; }
+}
+@container (max-width: 250px) {
+  .ch-row:nth-child(n+4), .ch-sl:nth-child(n+6) { display: none; }
+}

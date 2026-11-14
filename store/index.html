@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en" class="silk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRONPULSE 3D GYM — strength is built, not bought</title>
+<meta name="description" content="A strength gym in Hyderabad. Coached lifting, real programming, and the supplements to back it up.">
+<meta name="theme-color" content="#fbfcf7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%275%27 fill=%27%23b1e743%27/%3E%3Cpath d=%27M8 6h9M8 12h7M8 18h9M8 6v12%27 stroke=%27%2322201f%27 stroke-width=%272.4%27 stroke-linecap=%27round%27 fill=%27none%27/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- LOAD ORDER MATTERS.
+     brand        the palette, type and motion curves. everything reads from it
+     silk-scroll  the container contract (VENDORED — never edited here)
+     site         layout: the 12-col grid and every component
+     chrome       the procedural artwork inside the dark panels
+     density      the responsive pass
+     motion       the reveal utilities
+     skins        engine tokens: the ONLY place the commerce engine gets colour
+     engine       the commerce engine's own structural CSS -->
+<link rel="stylesheet" href="/styles/elite/brand.css">
+<link rel="stylesheet" href="/styles/elite/silk-scroll.css">
+<link rel="stylesheet" href="/styles/elite/site.css">
+<link rel="stylesheet" href="/styles/elite/chrome.css">
+<link rel="stylesheet" href="/styles/elite/density.css">
+<link rel="stylesheet" href="/styles/elite/motion.css">
+<link rel="stylesheet" href="/styles/elite/shop.css">
+<link rel="stylesheet" href="/skins/base.css">
+<link rel="stylesheet" href="/skins/elite.css">
+<link rel="stylesheet" href="/engine/engine.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- The fixed screen. The canvas lives here and is composited ONCE; the skin
+     scrolls over it. This is the single biggest reason the page does not feel
+     heavy — see styles/elite/silk-scroll.css. -->
+<div class="silk-stage" aria-hidden="true">
+  <canvas id="gl"></canvas>
+</div>
+
+<div class="header__overlay" id="hdr-overlay" aria-hidden="true"></div>
+
+<!-- ═══ 1 · HEADER ═══════════════════════════════════════════════════════ -->
+<header class="header">
+  <div class="header__main">
+
+    <div class="header__left pill" style="position:relative">
+      <a class="logo" href="#main"><b>IRONPULSE AI OS</b></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#s-story-1" id="nav-product" aria-expanded="false" aria-controls="dd-product">Train</a>
+        <a href="#s-pillars">Coaching</a>
+        <a href="#s-shop">Shop</a>
+        <a href="#s-membership">Membership</a>
+        <a href="#s-timetable">Timetable</a>
+        <button class="kebab" aria-label="More"><i></i><i></i><i></i></button>
+      </nav>
+      <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-panel"><i></i><i></i></button>
+
+      <div class="dropdown" id="dd-product" role="region" aria-label="Train">
+        <div class="dropdown__menu">
+          <a href="#s-story-1"><strong>The floor</strong><span>Platforms, racks and bars that take a beating</span></a>
+          <a href="#s-story-2"><strong>Coaching</strong><span>Somebody watching the bar, every session</span></a>
+          <a href="#s-story-3"><strong>Progress</strong><span>Numbers that move, written down</span></a>
+        </div>
+        <div class="dropdown__foot">
+          <p>Built for people who want to get stronger on purpose rather than by accident.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__right pill">
+      <a class="link-login" href="../">← OS Blueprint</a><a class="link-login" href="../admin/?demo=1#/agent">Admin OS</a><a class="link-login" href="../order/">Track 10-Min Order</a>
+      <a class="btn" href="#s-cart">Shop<span class="nav-cart" data-j7-mount="cart-count" hidden>0</span></a>
+    </div>
+
+  </div>
+</header>
+
+<nav class="menu-panel" id="menu-panel" aria-label="Mobile">
+  <a href="#s-story-1">Train</a>
+  <a href="#s-pillars">Coaching</a>
+  <a href="#s-shop">Shop</a>
+  <a href="#s-membership">Membership</a>
+  <a href="#s-timetable">Timetable</a>
+  <a href="../order/">Track order</a>
+</nav>
+
+<div class="silk-viewport">
+
+  <main id="main" class="sheet">
+
+    <!-- ═══ 2 · HERO ═════════════════════════════════════════════════════ -->
+    <section class="section" id="s-hero" style="min-height:900px">
+      <div class="hero__grad" aria-hidden="true"></div>
+      <div class="hero__bloom" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <h1 class="h1 hero__title">
+          <span class="mask"><span>Strength is built</span></span>
+        </h1>
+        <div class="hero__sub">
+          <p class="lead rise" style="--d:220ms">A strength gym in Hyderabad. Coached lifting, real programming, and the supplements to back it up.</p>
+          <a class="btn btn--lg rise" data-iris style="--d:340ms" href="#s-membership">Start training</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 3 · TICKER ═══════════════════════════════════════════════════ -->
+    <section class="section" id="s-ticker" style="min-height:220px">
+      <div class="ticker__inner">
+        <p class="ticker__cap rise">What gets trained here, every week</p>
+        <div class="lane lane--wide" data-lane data-lane-speed="0.16" data-lane-dir="ltr" role="list" aria-label="Disciplines"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 4 · STATEMENT + TIMELINE ═════════════════════════════════════ -->
+    <section class="section" id="s-statement" style="min-height:1800px">
+
+      <div class="statement">
+        <h2 class="h2 statement__h">
+          <span class="mask"><span style="--d:0ms">Most people do not stop training</span></span>
+          <span class="lane lane--slot" data-lane data-lane-speed="0.30" data-lane-dir="ltr" data-lane-start="1" aria-hidden="true"></span>
+          <span class="mask"><span style="--d:110ms">because it got hard.</span></span>
+          <span class="lane lane--slot" data-lane data-lane-speed="0.24" data-lane-dir="rtl" data-lane-start="4" aria-hidden="true"></span>
+          <span class="mask"><span style="--d:220ms">They stop because nothing was moving.</span></span>
+        </h2>
+        <div class="statement__strip strip strip--4 slide slide--stagger" data-reveal><div class="frame"><span class="frame__tag">SQUAT</span><span class="frame__tc"><b>WEEK 01</b><b>60 KG</b></span></div><div class="frame"><span class="frame__tag">SQUAT</span><span class="frame__tc"><b>WEEK 12</b><b>92 KG</b></span></div><div class="frame" data-art="full"><span class="frame__tag">PULL</span><span class="frame__tc"><b>WEEK 01</b><b>3 REPS</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">PULL</span><span class="frame__tc"><b>WEEK 12</b><b>11 REPS</b></span></div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__bg" aria-hidden="true"></div>
+        <div class="timeline__inner">
+          <div class="timeline__rule" aria-hidden="true"></div>
+          <div class="timeline__blocks">
+            <div class="tblock plate" style="--d:0ms">
+              <div class="halftone" aria-hidden="true"></div>
+              <span class="tblock__n">01</span>
+              <p class="tblock__t">We measure where you actually are</p>
+            </div>
+            <div class="tblock plate" style="--d:90ms">
+              <div class="halftone" aria-hidden="true"></div>
+              <span class="tblock__n">02</span>
+              <p class="tblock__t">You get a programme, not a workout</p>
+            </div>
+            <div class="tblock plate" style="--d:180ms">
+              <div class="halftone" aria-hidden="true"></div>
+              <span class="tblock__n">03</span>
+              <p class="tblock__t">Somebody watches the bar every session</p>
+            </div>
+            <div class="tblock plate" style="--d:270ms">
+              <div class="halftone" aria-hidden="true"></div>
+              <span class="tblock__n">04</span>
+              <p class="tblock__t">The load goes up on a schedule</p>
+            </div>
+            <div class="tblock plate" style="--d:360ms">
+              <div class="halftone" aria-hidden="true"></div>
+              <span class="tblock__n">05</span>
+              <p class="tblock__t">Every eight weeks we re-test and rewrite it</p>
+            </div>
+          </div>
+            <div class="timeline__strip strip strip--3"><div class="frame" data-art="wave"><span class="frame__tag">INTAKE</span><span class="frame__tc"><b>DAY 01</b><b>45 MIN</b></span></div><div class="frame" data-art="lanes"><span class="frame__tag">BLOCK</span><span class="frame__tc"><b>8 WEEKS</b><b>4 / WK</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">RETEST</span><span class="frame__tc"><b>WEEK 09</b><b>5 LIFTS</b></span></div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══ 5 · THE FLOOR ════════════════════════════════════════════════ -->
+    <section class="section story story--bleed" id="s-story-1" style="min-height:1346px">
+      <div class="story__grid">
+        <div class="story__text">
+          <p class="label rise">01 — The floor</p>
+          <h2 class="h3"><span class="mask"><span>Equipment that does not queue.</span></span></h2>
+          <p class="body rise" style="--d:120ms">Six platforms, four racks, calibrated plates and bars that are actually straight. Nobody here waits twenty minutes to squat, because a gym you have to queue in is a gym you stop going to.</p>
+          <a class="story__link rise" href="#s-story-2" style="--d:200ms">See the floor <i></i></a>
+          <div class="story__aside strip strip--3 slide slide--stagger" data-reveal><div class="frame" data-art="full"><span class="frame__tag">RACKS</span><span class="frame__tc"><b>04</b><b>FREE</b></span></div><div class="frame" data-art="full"><span class="frame__tag">PLATFORMS</span><span class="frame__tc"><b>06</b><b>OPEN</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">BARS</span><span class="frame__tc"><b>20 KG</b><b>CAL.</b></span></div></div>
+        </div>
+        <div class="story__media rise" style="--d:160ms">
+          <div class="ui zoom zoom--self" data-reveal data-iris>
+            <div class="ui__bar">
+              <span class="ui__chip">TUE 18:30</span>
+              <span class="ui__chip">LOWER — A</span>
+              <span class="ui__chip ui__chip--x">&times;</span>
+            </div>
+            <div class="ui__preview" data-art="full"><div class="halftone" aria-hidden="true"></div><span class="ui__ph">SESSION</span><span class="ui__scrub"><b></b></span></div>
+            <div class="ui__rows">
+            <div class="ui__row"><span class="ui__name">Back squat</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:82%;--d:0ms"></span></span><span class="ui__meta">5×3</span></div>
+            <div class="ui__row"><span class="ui__name">Romanian deadlift</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:64%;--d:90ms"></span></span><span class="ui__meta">4×6</span></div>
+            <div class="ui__row"><span class="ui__name">Split squat</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:47%;--d:180ms"></span></span><span class="ui__meta">3×8</span></div>
+            <div class="ui__row"><span class="ui__name">Leg curl</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:38%;--d:270ms"></span></span><span class="ui__meta">3×12</span></div>
+            <div class="ui__row"><span class="ui__name">Calf raise</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:20%;--d:360ms"></span></span><span class="ui__meta">4×15</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 6 · COACHING ═════════════════════════════════════════════════ -->
+    <section class="section story story--flip story--bleed" id="s-story-2" style="min-height:1157px">
+      <div class="story__grid">
+        <div class="story__text">
+          <p class="label rise">02 — Coaching</p>
+          <h2 class="h3"><span class="mask"><span>Somebody is watching the bar.</span></span></h2>
+          <p class="body rise" style="--d:120ms">Every session on the floor has a coach on it. Not a personal trainer you book by the hour — a coach who knows what you lifted on Tuesday and what you are supposed to lift today.</p>
+          <a class="story__link rise" href="#s-story-3" style="--d:200ms">How coaching works <i></i></a>
+          <div class="story__aside strip strip--3 slide slide--stagger" data-reveal><div class="frame" data-art="wave"><span class="frame__tag">RATIO</span><span class="frame__tc"><b>1 : 6</b><b>MAX</b></span></div><div class="frame" data-art="lanes"><span class="frame__tag">CHECK-IN</span><span class="frame__tc"><b>WEEKLY</b><b>15 MIN</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">FORM</span><span class="frame__tc"><b>FILMED</b><b>MONTHLY</b></span></div></div>
+        </div>
+        <div class="story__media rise" style="--d:160ms">
+          <div class="ui zoom zoom--self" data-reveal data-iris>
+            <div class="ui__bar">
+              <span class="ui__chip">BLOCK 03</span>
+              <span class="ui__chip">WEEK 5 / 8</span>
+              <span class="ui__chip ui__chip--x">&times;</span>
+            </div>
+            <div class="ui__preview" data-art="full"><div class="halftone" aria-hidden="true"></div><span class="ui__ph">PROGRAMME</span><span class="ui__scrub"><b></b></span></div>
+            <div class="ui__rows">
+            <div class="ui__row"><span class="ui__name">Squat — top set</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:92%;--d:0ms"></span></span><span class="ui__meta">+5 kg</span></div>
+            <div class="ui__row"><span class="ui__name">— back-off sets</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:70%;--d:100ms"></span></span><span class="ui__meta">hold</span></div>
+            <div class="ui__row"><span class="ui__name">Bench — top set</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:55%;--d:200ms"></span></span><span class="ui__meta">+2.5 kg</span></div>
+            <div class="ui__row"><span class="ui__name">Accessories</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:41%;--d:300ms"></span></span><span class="ui__meta">as is</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 7 · PROGRESS ═════════════════════════════════════════════════ -->
+    <section class="section story story--bleed" id="s-story-3" style="min-height:1800px">
+      <div class="story__grid">
+        <div class="story__text">
+          <p class="label rise">03 — Progress</p>
+          <h2 class="h3"><span class="mask"><span>Written down, or it did not happen.</span></span></h2>
+          <p class="body rise" style="--d:120ms">Every set is logged against the last time you did it. When a lift stalls for three weeks the programme changes — which is the entire difference between training and just turning up.</p>
+          <a class="story__link rise" href="#s-pillars" style="--d:200ms">See a real block <i></i></a>
+          <div class="story__aside strip strip--3 slide slide--stagger" data-reveal><div class="frame" data-art="full"><span class="frame__tag">LOGGED</span><span class="frame__tc"><b>EVERY</b><b>SET</b></span></div><div class="frame" data-art="full"><span class="frame__tag">STALL</span><span class="frame__tc"><b>3 WKS</b><b>REWRITE</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">RETEST</span><span class="frame__tc"><b>WEEK 09</b><b>5 LIFTS</b></span></div></div>
+        </div>
+        <div class="story__media plate" style="--d:160ms">
+          <div class="ui zoom zoom--self" data-reveal data-iris>
+            <div class="ui__bar">
+              <span class="ui__chip">12 WEEKS</span>
+              <span class="ui__chip">5 LIFTS</span>
+              <span class="ui__chip ui__chip--x">&times;</span>
+            </div>
+            <div class="ui__preview" data-art="full"><div class="halftone" aria-hidden="true"></div><span class="ui__ph">PROGRESS</span><span class="ui__scrub"><b></b></span></div>
+            <div class="ui__rows">
+            <div class="ui__row"><span class="ui__name">Deadlift</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:100%;--d:0ms"></span></span><span class="ui__meta">+38 kg</span></div>
+            <div class="ui__row"><span class="ui__name">Back squat</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:76%;--d:110ms"></span></span><span class="ui__meta">+32 kg</span></div>
+            <div class="ui__row"><span class="ui__name">Bench press</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:44%;--d:220ms"></span></span><span class="ui__meta">+17 kg</span></div>
+            <div class="ui__row"><span class="ui__name">Overhead press</span><span class="ui__bar-track"><span class="ui__bar-fill" style="--w:12%;--d:330ms"></span></span><span class="ui__meta">+9 kg</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 8 · THE FOUR PILLARS ═════════════════════════════════════════ -->
+    <section class="section fc" id="s-pillars" style="min-height:994px">
+      <div class="fc__inner">
+        <p class="fc__eyebrow rise">What you actually get</p>
+        <h3 class="h3 fc__lead"><span class="mask"><span>Four things, done properly, for as long as it takes.</span></span></h3>
+        <a class="fc__all rise" data-iris style="--d:160ms" href="#s-faq">Read the detail <i></i></a>
+        <div class="fc__row">
+          <div class="fc__card rise" style="--d:0ms">
+            <div class="frame frame--dark zoom zoom--hover zoom--self" data-reveal data-iris data-chrome="segments" data-art="none"></div>
+            <div class="fc__txt"><h3>Train</h3><p>A written block, four sessions a week, rewritten every eight weeks off your own numbers.</p></div>
+          </div>
+          <div class="fc__card rise" style="--d:90ms">
+            <div class="frame frame--dark zoom zoom--hover zoom--self" data-reveal data-iris data-chrome="player" data-art="none"></div>
+            <div class="fc__txt"><h3>Fuel</h3><p>Protein, creatine and the two or three other things worth the money. Nothing else.</p></div>
+          </div>
+          <div class="fc__card rise" style="--d:180ms">
+            <div class="frame frame--dark zoom zoom--hover zoom--self" data-reveal data-iris data-chrome="props" data-art="scene"></div>
+            <div class="fc__txt"><h3>Recover</h3><p>Sleep, deloads and knowing when to back off — the half of training nobody sells you.</p></div>
+          </div>
+          <div class="fc__card rise" style="--d:270ms">
+            <div class="frame frame--dark zoom zoom--hover zoom--self" data-reveal data-iris data-chrome="queue" data-art="none"></div>
+            <div class="fc__txt"><h3>Track</h3><p>Every set logged against the last one, so a stall is visible in week two, not month six.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 9 · RESULTS ══════════════════════════════════════════════════ -->
+    <section class="section fh" id="s-results" style="min-height:986px">
+      <div class="fh__grid">
+        <div class="fh__text">
+          <p class="label rise">Twelve weeks</p>
+          <h2 class="h3" style="margin:26px 0"><span class="mask"><span>The first block is where the argument ends.</span></span></h2>
+          <p class="body rise" style="--d:120ms">Nobody believes the programme in week one. They believe it in week nine, when the bar that used to be a hard triple is a comfortable five. That is the only sales pitch this place has.</p>
+        </div>
+        <div class="fh__media rise" style="--d:160ms">
+          <div class="fh__plate">
+            <div class="halftone" aria-hidden="true"></div>
+            <div class="fh__bars" aria-hidden="true">
+              <i style="height:34%;--d:0ms"></i><i style="height:52%;--d:70ms"></i>
+              <i style="height:41%;--d:140ms"></i><i style="height:68%;--d:210ms"></i>
+              <i style="height:57%;--d:280ms"></i><i style="height:88%;--d:350ms"></i>
+              <i style="height:74%;--d:420ms"></i><i style="height:100%;--d:490ms"></i>
+            </div>
+            <p class="label">Total tonnage / week</p>
+            <div class="fh__legend pop" data-reveal style="--d:120ms">
+              <div><b>+31%</b><span>SQUAT, 12 WKS</span></div>
+              <div><b>4</b><span>SESSIONS / WK</span></div>
+              <div><b>1:6</b><span>COACH RATIO</span></div>
+              <p class="fh__legend-note"><span>Median across members who finished a full first block. Not everybody finishes one.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10 · THE SHOP ════════════════════════════════════════════════
+         The commerce engine mounts here. Everything inside data-j7-mount is
+         painted at runtime from the database. The engine owns what is inside
+         those nodes and nothing outside them; it holds no colour of its own
+         and reads every value from skins/elite.css. -->
+    <section class="section gc" id="s-shop" style="min-height:900px">
+      <div class="gc__inner">
+        <div class="halftone" aria-hidden="true"></div>
+        <div class="gc__head">
+          <h3 class="h3"><span class="mask"><span>The things worth buying.</span></span></h3>
+          <p class="body rise" style="--d:120ms">Complete Supplement Stacks (Muscle Gain, Lean Cut & Recovery Sets) — 10-Minute Hyperlocal Delivery wherever you are with 6-Digit OTP Handover, or instant Gym Counter Pickup.</p>
+        </div>
+
+        <div class="shop" data-j7-mount="catalog"></div>
+
+        <!-- id is what the header cart button and the jump bar aim at. Native
+             #id anchors are dead under the silk contract, so both route
+             through silk.scrollTo via the delegated handler in site.js. -->
+        <div class="shop-panels" id="s-cart">
+          <div class="shop-panel" data-j7-mount="cart"></div>
+          <div class="shop-panel" data-j7-mount="checkout"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 11 · THE QUESTIONS ═══════════════════════════════════════════ -->
+    <section class="section fs" id="s-faq" style="min-height:921px">
+      <div class="fs__grid">
+        <div class="fs__left">
+          <p class="label rise">Before you ask</p>
+          <h3 class="h3" style="margin-top:26px"><span class="mask"><span>The things people actually want to know.</span></span></h3>
+        </div>
+        <div class="fs__right">
+          <div class="acc rise" style="--d:0ms"><button class="acc__trigger" type="button" aria-expanded="true" aria-controls="acc-f0" data-state="open"><h3>I have never lifted before</h3><span class="acc__mark" aria-hidden="true"></span></button><div class="acc__panel" id="acc-f0" role="region"><div class="acc__panelInner"><p>Good. Beginners make the fastest progress of anyone in the building, and the first four weeks go on the movements rather than the weight.</p></div></div></div>
+          <div class="acc rise" style="--d:70ms"><button class="acc__trigger" type="button" aria-expanded="false" aria-controls="acc-f1" data-state="closed"><h3>I have an old injury</h3><span class="acc__mark" aria-hidden="true"></span></button><div class="acc__panel" id="acc-f1" role="region"><div class="acc__panelInner"><p>Tell us at the intake and bring anything a doctor has written. We are coaches, not physios — we work around what you have been cleared for, and we will say so when something is out of our lane.</p></div></div></div>
+          <div class="acc rise" style="--d:140ms"><button class="acc__trigger" type="button" aria-expanded="false" aria-controls="acc-f2" data-state="closed"><h3>How often do I have to come?</h3><span class="acc__mark" aria-hidden="true"></span></button><div class="acc__panel" id="acc-f2" role="region"><div class="acc__panelInner"><p>Four sessions a week is the programme. Three works. Two is maintenance, and we will tell you honestly that you are paying for something you are not using.</p></div></div></div>
+          <div class="acc rise" style="--d:210ms"><button class="acc__trigger" type="button" aria-expanded="false" aria-controls="acc-f3" data-state="closed"><h3>Do I need the supplements?</h3><span class="acc__mark" aria-hidden="true"></span></button><div class="acc__panel" id="acc-f3" role="region"><div class="acc__panelInner"><p>No. Protein is convenient and creatine is the one supplement with a genuinely boring amount of evidence behind it. Everything else is optional and we will say which is which.</p></div></div></div>
+          <div class="acc rise" style="--d:280ms"><button class="acc__trigger" type="button" aria-expanded="false" aria-controls="acc-f4" data-state="closed"><h3>Can I freeze my membership?</h3><span class="acc__mark" aria-hidden="true"></span></button><div class="acc__panel" id="acc-f4" role="region"><div class="acc__panelInner"><p>Once a year, up to a month, no reason needed. Travel and illness happen, and charging somebody for a month they spent in another country is a good way to lose them for good.</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 12 · MEMBERSHIP ══════════════════════════════════════════════ -->
+    <section class="section db" id="s-membership" style="min-height:999px">
+      <div class="db__grid">
+        <div class="db__item rise" style="--d:0ms">
+          <div class="halftone" aria-hidden="true"></div>
+          <div>
+            <p class="db__price">FULL MEMBERSHIP</p>
+            <h3 class="h3" style="margin-top:20px">The floor, the programme, the coach.</h3>
+            <p class="body">Unlimited access, a written block rewritten every eight weeks, and a coach on every session you attend. No joining fee.</p>
+          </div>
+          <a class="btn" href="#s-shop" style="align-self:flex-start">See membership</a>
+        </div>
+        <div class="db__item rise" style="--d:120ms">
+          <div class="halftone" aria-hidden="true"></div>
+          <div>
+            <p class="db__price">PERSONAL TRAINING</p>
+            <h3 class="h3" style="margin-top:20px">One coach, one hour, entirely yours.</h3>
+            <p class="body">For a specific lift, a competition, or coming back from something. Booked in blocks of eight, so there is time for it to work.</p>
+          </div>
+          <a class="btn" href="#s-shop" style="align-self:flex-start">See PT blocks</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 13 · TIMETABLE ═══════════════════════════════════════════════ -->
+    <section class="section bh story" id="s-timetable" style="min-height:986px">
+      <div class="story__grid">
+        <div class="story__text">
+          <p class="label rise">When we are open</p>
+          <h2 class="h3" style="margin:26px 0"><span class="mask"><span>Early, late, and all of Saturday.</span></span></h2>
+          <p class="body rise" style="--d:120ms">Coached sessions run at fixed times, so there is always somebody on the floor who knows what you are doing. Outside those hours the gym is still yours.</p>
+          <a class="story__link rise" href="#s-shop" style="--d:200ms">Book an intake <i></i></a>
+          <div class="story__aside strip strip--3 slide slide--stagger" data-reveal><div class="frame" data-art="full"><span class="frame__tag">WEEKDAY</span><span class="frame__tc"><b>05:30</b><b>22:00</b></span></div><div class="frame" data-art="full"><span class="frame__tag">SATURDAY</span><span class="frame__tc"><b>06:00</b><b>20:00</b></span></div><div class="frame" data-art="scene"><span class="frame__tag">SUNDAY</span><span class="frame__tc"><b>07:00</b><b>14:00</b></span></div></div>
+        </div>
+        <div class="story__media rise" style="--d:160ms">
+          <div class="bh__media">
+            <span class="bh__line" style="--d:0ms">MON  06:00  LOWER A     coached</span>
+            <span class="bh__line" style="--d:80ms">MON  18:30  UPPER A     coached</span>
+            <span class="bh__line" style="--d:160ms">TUE  06:00  UPPER B     coached</span>
+            <span class="bh__line" style="--d:240ms">WED  18:30  LOWER B     coached</span>
+            <span class="bh__line" style="--d:320ms">FRI  06:00  FULL BODY   coached</span>
+            <span class="bh__line" style="--d:400ms">SAT  09:00  OPEN FLOOR  coached</span>
+            <span class="bh__line bh__line--dim" style="--d:480ms">&nbsp;</span>
+            <span class="bh__line bh__line--dim" style="--d:560ms">// every other hour the floor is open</span>
+            <span class="bh__line bh__line--dim" style="--d:640ms">// intake sessions by appointment, 45 min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══ 14 · FOOTER ════════════════════════════════════════════════════ -->
+  <footer class="section" id="s-footer" style="min-height:1127px">
+    <div class="halftone" aria-hidden="true"></div>
+    <div class="ft__inner">
+      <h2 class="h2 ft__top"><span class="mask"><span>Come and lift something heavy.</span></span></h2>
+
+      <div class="ft__grid">
+        <div class="ft__col">
+          <h4>Train</h4>
+          <ul><li><a href="#s-story-1">The floor</a></li><li><a href="#s-story-2">Coaching</a></li><li><a href="#s-story-3">Progress</a></li><li><a href="#s-timetable">Timetable</a></li></ul>
+        </div>
+        <div class="ft__col">
+          <h4>Shop</h4>
+          <ul><li><a href="#s-shop">Supplements</a></li><li><a href="#s-membership">Membership</a></li><li><a href="#s-membership">Personal training</a></li><li><a href="/order/">Track an order</a></li></ul>
+        </div>
+        <div class="ft__col">
+          <h4>The gym</h4>
+          <ul><li><a href="#s-pillars">What you get</a></li><li><a href="#s-faq">Questions</a></li><li><a href="#s-results">Results</a></li><li><a href="#main">Visit</a></li></ul>
+        </div>
+        <div class="ft__col">
+          <h4>Find us</h4>
+          <ul>
+            <li><span data-j7-mount="gym-address">Hyderabad</span></li>
+            <li><span data-j7-mount="gym-hours">Open daily</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ft__mark" aria-hidden="true"><span data-j7-mount="gym-name">IRONPULSE 3D GYM</span></div>
+
+      <div class="ft__base">
+        <span>IRONPULSE 3D GYM — strength is built, not bought.</span>
+        <span>Collect at the gym, or have it delivered.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Appears only once the cart has something in it. The route from
+     "I added a thing" to "I paid for it". -->
+<a class="cart-jump" id="cart-jump" href="#s-cart" aria-hidden="true" tabindex="-1">
+  <span class="cart-jump__n"><b id="cart-jump-n">0</b> in your bag</span>
+  <span class="cart-jump__go">Checkout</span>
+</a>
+
+<script src="/js/elite/silk-scroll.js"></script>
+<script src="/js/elite/site.js"></script>
+<script src="/js/elite/gl.js"></script>
+<script src="/js/elite/art.js"></script>
+<script src="/js/elite/chrome.js"></script>
+<script src="/js/elite/lane.js"></script>
+<script src="/js/elite/iris.js"></script>
+<script src="/js/elite/shop.js"></script>
+
+<script type="module">
+  import { boot } from '/engine/index.js';
+  boot().catch((err) => console.error('shop failed to load:', err));
+</script>
+
+</body>
+</html>

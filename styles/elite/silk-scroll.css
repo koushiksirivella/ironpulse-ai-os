@@ -1,0 +1,112 @@
+/* =========================================================================
+   SILK SCROLL v1.0 - companion stylesheet.
+   Pair with runtime/silk-scroll.js. Ships the container contract, the
+   reveal keyframes, and the signature easing curve.
+   ========================================================================= */
+
+:root {
+  /* THE curve. Long slow head, violent snap tail. This is what reads as
+     "butter then land" - a symmetric ease reads as sluggish at the same
+     duration. Use it for every state transition on a silk page. */
+  --silk-ease: cubic-bezier(0.66, 0, 0.01, 1);
+  --silk-ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+  --silk-dur: 0.66s;
+}
+
+/* ------------------------------------------------------- CONTAINER ---- */
+/* The screen stays put. The skin scrolls over it.
+
+   html/body are locked to the viewport and never scroll. One fixed layer
+   owns the scroll; anything painted behind it (WebGL canvas, grid overlay,
+   noise) is composited once and never repaints while content moves. This
+   is the single biggest reason a heavy page stops feeling heavy. */
+html.silk, html.silk body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.silk-stage {                 /* the fixed screen - put the canvas here */
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.silk-viewport {              /* the scrolling skin */
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.silk-viewport::-webkit-scrollbar { display: none; }
+.silk-viewport { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* Only elements that actually move get a compositor layer. Blanket
+   will-change on everything is slower than none. */
+.silk-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* A tall section whose child pins. height is set in JS to stages x 100vh. */
+.silk-pin { position: relative; }
+.silk-pin > .silk-pinned {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/* --------------------------------------------------------- REVEAL ----- */
+.silk-char { display: inline-block; }
+
+/* Words are the break unit. Loose inline-block characters let the browser
+   break a line between ANY two of them, which shreds words mid-syllable
+   the moment a column is tight. */
+.silk-word { display: inline-block; white-space: nowrap; }
+
+/* Three-step opacity, not linear. A straight fade reads flat; the slow
+   front third is what makes characters look like they surface out of the
+   page rather than switch on. */
+@keyframes silkFadeIn {
+  0%   { opacity: 0; }
+  32%  { opacity: 0.22; }
+  62%  { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+@keyframes silkFadeOut {
+  0%   { opacity: 1; }
+  38%  { opacity: 0.62; }
+  72%  { opacity: 0.28; }
+  100% { opacity: 0; }
+}
+
+/* ----------------------------------------------------- SVG SIGNATURE -- */
+.silk-sign path { opacity: 0; fill: none; stroke-linecap: butt; }
+.silk-sign.is-drawing path {
+  animation:
+    silkSignShow 0s linear var(--silk-delay) forwards,
+    silkSignDraw var(--silk-dur) var(--silk-ease-draw) var(--silk-delay) forwards;
+}
+@keyframes silkSignDraw { to { stroke-dashoffset: 0; } }
+@keyframes silkSignShow { to { opacity: 1; } }
+
+/* ------------------------------------------------- REDUCED MOTION ----- */
+/* Not "turn the animations off" - land every animation in its finished
+   state. An element stuck at opacity 0 because its reveal was disabled is
+   a broken page, not an accessible one. */
+@media (prefers-reduced-motion: reduce) {
+  .silk-char { animation: none !important; opacity: 1 !important; }
+  .silk-sign path,
+  .silk-sign.is-drawing path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+  .silk-viewport { scroll-behavior: auto; }
+}

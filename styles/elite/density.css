@@ -1,0 +1,244 @@
+/* ============================================================
+   density.css — the fill pass.
+
+   Section heights matched the reference exactly while the content
+   only occupied ~66% of each band, so a third of the page was
+   white nothing. This file redistributes content to the reference's
+   own fill ratio. It changes what is INSIDE a band, never the
+   band height — every rule here is verified against _void.js.
+   ============================================================ */
+
+/* ---------------- 1. FEATURE CARDS ----------------
+   Reference: eyebrow 150 / h2 211 / media 292-693 / title 727 /
+   copy 771-813 in a 994 band = 67% fill. Ours was 53%. The media
+   plate was less than half the height it should be. */
+
+.fc__inner { display: grid; grid-template-columns: 1fr auto; column-gap: 30px; }
+.fc__eyebrow {
+  grid-column: 1 / -1;
+  font-family: var(--e-font-mono, "Geist Mono", ui-monospace, monospace);
+  font-size: 12px; letter-spacing: .04em; color: var(--e-ink-40);
+  margin-bottom: 16px;
+}
+.fc__lead { grid-column: 1; max-width: 26ch; margin-bottom: 0; align-self: center; }
+.fc__all {
+  grid-column: 2; align-self: center; justify-self: end;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: .9375rem; padding: 13px 22px; border-radius: var(--e-r-pill, 16px);
+  background: rgba(15, 15, 15, .05); color: var(--e-ink);
+  transition: background-color .3s ease, transform .3s ease;
+}
+.fc__all:hover { background: rgba(15, 15, 15, .09); transform: translateY(-1px); }
+.fc__all i {
+  width: 15px; height: 1px; background: currentColor; position: relative; opacity: .7;
+  transition: transform .3s ease;
+}
+.fc__all i::after {
+  content: ""; position: absolute; right: 0; top: -3px;
+  width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.fc__all:hover i { transform: translateX(3px); }
+
+.fc__row { grid-column: 1 / -1; margin-top: 54px; align-items: start; }
+
+.fc__card {
+  min-height: 0;
+  background: none; box-shadow: none; padding: 0; border-radius: 0;
+  display: flex; flex-direction: column; gap: 26px;
+}
+.fc__card:hover { transform: none; }
+.fc__card .frame {
+  height: 401px; margin-bottom: 0; border-radius: var(--e-r-card, 32px);
+  position: relative; overflow: clip;
+}
+.fc__txt h3 { font-size: 1.5rem; letter-spacing: -.005em; }
+.fc__txt p  { font-size: .9375rem; line-height: 1.42; color: var(--e-ink-40); margin-top: 10px; max-width: 30ch; }
+
+/* the plate is the card now, so the card's own halftone is redundant */
+.fc__card > .halftone { display: none; }
+
+/* ---------------- 2. SCROLL LANES ----------------
+   A row of marks whose x is a pure function of scrollTop. Scroll
+   down and they travel one way, scroll up and they run back —
+   the damp in lane.js is what gives the reversal weight. The
+   slot variant sits BETWEEN the headline lines, so the marks
+   pass through the text block rather than beside it. */
+
+.lane { position: relative; overflow: clip; width: 100%; }
+.lane__track {
+  display: flex; align-items: center; width: max-content;
+  will-change: transform;
+}
+
+/* marks */
+.mk {
+  display: inline-flex; align-items: center; gap: 11px;
+  flex: none; color: var(--e-ink);
+}
+.mk__g { width: 22px; height: 22px; flex: none; display: block; }
+.mk__t {
+  font-family: var(--e-font-sans, Geist, system-ui);
+  font-size: 1.0625rem; letter-spacing: -.008em; white-space: nowrap;
+}
+
+/* The wide band under the hero.
+   Reference geometry: caption 62px into a 220px band, marks centred
+   at 152px, cap height ~40px, running full-bleed and clipped at both
+   viewport edges — not inset in the container. */
+#s-ticker .ticker__inner { width: 100%; max-width: none; padding: 0; }
+#s-ticker .ticker__cap { text-align: center; padding-top: 52px; }
+.lane--wide { margin-top: 44px; height: 44px; }
+.lane--wide .lane__track { height: 100%; }
+.lane--wide .mk { padding: 0 46px; gap: 14px; }
+.lane--wide .mk__g { width: 34px; height: 34px; }
+.lane--wide .mk__t { font-size: 1.625rem; font-weight: 500; letter-spacing: -.014em; }
+/* the band fades out at both edges so marks arrive and leave, never pop */
+.lane--wide {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+/* the slot that lives between two headline lines */
+.statement__h { display: block; }
+.lane--slot {
+  display: block; height: .78em; margin: .10em 0 .16em;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.lane--slot .lane__track { height: 100%; }
+.lane--slot .mk { padding: 0 .34em; opacity: .38; }
+.lane--slot .mk__g { width: .40em; height: .40em; }
+.lane--slot .mk__t { font-size: .34em; letter-spacing: .004em; }
+
+@media (max-width: 900px) {
+  .lane--wide .mk { padding: 0 26px; }
+  .mk__t { font-size: .9375rem; }
+}
+
+/* ---------------- 3. STORY PANELS ----------------
+   The reference does not contain its story media inside the grid —
+   it runs off the viewport edge and gets clipped. That overshoot is
+   most of the visual weight in those bands, and containing it is why
+   ours read thin at the same section height.
+
+   The gap from container edge to viewport edge is exactly --e-gutter in
+   BOTH regimes: when the container is capped at 1307.81 the gutter
+   clamp is already at 66.09, and when it is width-limited the gutter
+   IS the inset. So the overshoot is one token, not a calc chain. */
+
+.story--bleed { overflow: clip; }
+.story--bleed .story__media {
+  grid-column: 8 / -1;
+  width: calc(100% + var(--e-gutter));
+  border-radius: var(--e-r-card, 32px) 0 0 var(--e-r-card, 32px);
+  overflow: clip;
+}
+.story--bleed.story--flip .story__media {
+  grid-column: 1 / span 5;
+  margin-left: calc(-1 * var(--e-gutter));
+  border-radius: 0 var(--e-r-card, 32px) var(--e-r-card, 32px) 0;
+}
+.story--bleed .story__media > .ui { border-radius: inherit; height: 100%; }
+
+/* story-3 owns the tallest band (1800px) and had 375px of void at both
+   ends. The panel carries it — the text column stays where it is. */
+
+/* The upper-left quadrant was white because a 1030px panel inside an
+   1800px band leaves 385px of air, and centring splits it top and bottom
+   with the headline stranded in the middle.
+
+   Do NOT fix this with padding on the grid: the band is sized by
+   min-height, so padding is additive and story-2 grew 1157 -> 1297,
+   breaking the exact section-height match. The only lever that closes
+   the gap without touching the band is the panel's own height. */
+#s-story-3 .ui { min-height: 1404px; }
+#s-story-1 .ui { min-height: 1016px; }
+
+@media (max-width: 900px) {
+  #s-story-3 .ui, #s-story-1 .ui { min-height: 520px; }
+}
+
+@media (max-width: 900px) {
+  .story--bleed .story__media,
+  .story--bleed.story--flip .story__media {
+    grid-column: 1 / -1; width: 100%; margin-left: 0;
+    border-radius: var(--e-r-card, 32px);
+  }
+}
+
+/* ---------------- 4. HIGHLIGHT + BLOCK ----------------
+   Two 986px bands whose media plate was pinned at 640px, so the plate
+   WAS the content span and 346px stayed white. Both plates carry the
+   band; the text column is the short one and does not set the floor. */
+
+#s-highlight .fh__plate,
+#s-block .bh__media { min-height: 772px; }
+#s-highlight .fh__bars { height: 348px; }
+
+/* the throughput plate had bars and one label in 640px — it needs a
+   readable floor, not more chart */
+.fh__legend {
+  display: flex; align-items: flex-end; gap: 26px;
+  margin-top: 26px; padding-top: 22px;
+  box-shadow: inset 0 1px 0 rgba(15, 15, 15, .10);
+}
+.fh__legend div { display: flex; flex-direction: column; gap: 5px; }
+.fh__legend b {
+  font-family: var(--e-font, Geist, system-ui);
+  font-size: 2rem; font-weight: 400; letter-spacing: -.02em; line-height: 1;
+}
+.fh__legend span {
+  font-family: var(--e-mono, "Geist Mono", ui-monospace, monospace);
+  font-size: 11px; letter-spacing: .05em; color: var(--e-ink-40);
+}
+.fh__legend .fh__legend-note { margin-left: auto; text-align: right; max-width: 22ch; }
+
+/* the code panel gets room to breathe rather than more lines crammed in */
+#s-block .bh__media { justify-content: center; gap: 4px; }
+
+@media (max-width: 900px) {
+  #s-highlight .fh__plate, #s-block .bh__media { min-height: 460px; }
+  #s-highlight .fh__bars { height: 190px; }
+  .fh__legend { gap: 18px; }
+  .fh__legend b { font-size: 1.5rem; }
+  .fh__legend .fh__legend-note { display: none; }
+}
+
+/* ---------------- 5. REDUCED MOTION ----------------
+   Lands FINISHED, never disabled.
+
+   site.css:170 neutralises .mask/.rise/.plate — the three that carry
+   their own reveal state. It misses every reveal that animates off an
+   ANCESTOR's .is-in instead of its own class, because those elements
+   never get a class of their own to override. Nine .bh__line rows deep
+   in #s-block sat at opacity 0 permanently for a reduced-motion reader:
+   the section is below the fold, so the ancestor never got .is-in, and
+   nothing in the media query matched the child. Enumerate them. */
+
+@media (prefers-reduced-motion: reduce) {
+  .bh__line,
+  .ui__bar-fill,
+  .ui__scrub b,
+  .fh__bars i,
+  .fh__legend,
+  .mk {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  /* the lane keeps its scroll-derived offset but stops being animated —
+     lane.js already applies the settled position once and skips onFrame */
+  .lane__track { transition: none !important; will-change: auto; }
+}
+
+@media (max-width: 1180px) {
+  .fc__card .frame { height: 330px; }
+}
+@media (max-width: 900px) {
+  .fc__inner { grid-template-columns: 1fr; }
+  .fc__all { grid-column: 1; justify-self: start; margin-top: 22px; }
+  .fc__row { margin-top: 40px; row-gap: 34px; }
+  .fc__card .frame { height: 300px; }
+}

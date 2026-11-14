@@ -1,0 +1,33 @@
+[
+  {
+    "brand": {
+      "bg": "#08090b",
+      "rim": "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(255,39,56,0.06)",
+      "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "glow": "0 0 42px rgba(255,45,63,0.26)",
+      "text": "#ffffff",
+      "brand": "#ff2738",
+      "dur-1": "160ms",
+      "dur-2": "260ms",
+      "dur-3": "640ms",
+      "field": "radial-gradient(90% 60% at 8% -6%, rgba(255,39,56,0.16) 0%, transparent 58%), radial-gradient(80% 55% at 100% 12%, rgba(40,120,220,0.10) 0%, transparent 55%), radial-gradient(120% 90% at 50% 108%, rgba(255,77,77,0.08) 0%, transparent 60%)",
+      "border": "#33363d",
+      "danger": "#ff6b6b",
+      "radius": "8px",
+      "shadow": "0 22px 48px -26px rgba(0,0,0,0.95)",
+      "surface": "#16171a",
+      "font-body": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "radius-lg": "16px",
+      "surface-2": "#1e2024",
+      "brand-glow": "#ff4d4d",
+      "brand-text": "#ffffff",
+      "img-filter": "saturate(1.12) contrast(1.05) brightness(0.97)",
+      "text-muted": "#a9adb8",
+      "brand-hover": "#ff5340",
+      "font-display": "\"Playfair Display\", ui-serif, Georgia, serif",
+      "surface-fill": "linear-gradient(158deg, rgba(255,255,255,0.07) 0%, rgba(255,39,56,0.045) 46%, rgba(255,255,255,0.014) 100%)",
+      "grain-opacity": "0.03",
+      "img-filter-hover": "saturate(1.28) contrast(1.10) brightness(1.02)"
+    }
+  }
+]

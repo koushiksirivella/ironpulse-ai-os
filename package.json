@@ -1,0 +1,34 @@
+{
+  "name": "ironpulse-ai-os",
+  "description": "IRONPULSE AI OS — Stable-Signaling Autonomous Gym Operating System by Understone AI Automation (https://www.understone.in/)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"scripts/**/*.test.mjs\"",
+    "serve": "node serve.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:order": "node scripts/smoke.mjs --order",
+    "smoke:admin": "node scripts/admin-smoke.mjs",
+    "buyflow": "node scripts/buyflow.mjs",
+    "fulfilment": "node scripts/fulfilment.mjs",
+    "operator": "node scripts/operator.mjs",
+    "db:schema": "node scripts/sql.mjs supabase/schema.sql",
+    "db:policies": "node scripts/sql.mjs supabase/policies.sql",
+    "db:functions": "node scripts/sql.mjs supabase/functions.sql",
+    "db:storage": "node scripts/sql.mjs supabase/storage.sql",
+    "db:seed": "node scripts/sql.mjs supabase/seed.sql",
+    "db:fulfilment": "node scripts/sql.mjs supabase/fulfilment.sql && node scripts/sql.mjs supabase/fulfilment-pickup.sql && node scripts/sql.mjs supabase/order-status.sql",
+    "db:setup": "npm run db:schema && npm run db:policies && npm run db:functions && npm run db:storage",
+    "assets:search": "node scripts/assets.mjs search",
+    "assets:fetch": "node scripts/assets.mjs fetch",
+    "assets:sheet": "node scripts/assets.mjs sheet",
+    "assets:alts": "node scripts/assets.mjs alts",
+    "brand": "node scripts/brand.mjs",
+    "shot": "node scripts/shot.mjs"
+  },
+  "devDependencies": {
+    "pg": "^8.23.0",
+    "puppeteer": "^24.37.5",
+    "sharp": "^0.35.3"
+  }
+}

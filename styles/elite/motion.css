@@ -1,0 +1,214 @@
+/* ==========================================================================
+   ELITE GYM — motion.css
+   The interaction set. Every value here was read off a reference build
+   rather than invented, which is why the set is small.
+
+   Transforms, all lifted:
+     scale(.95) -> scale(1)      the scroll-in settle
+     scale(1.05)                 the hover zoom
+     translateY(100%) -> 0       the mask reveal
+     translateY(48px)            the long block pop
+     translateY(8px)             the short chip pop
+     hue-rotate(0 -> 160deg)     the cursor-reactive iridescence
+
+   ONE easing curve does almost all of it. That restraint is the effect.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- ZOOM ---
+   Media settles from .95 into 1 as it enters, inside a clipped wrapper so
+   the plate edge stays put while the content grows into it. Without the
+   clip the whole card reads as jumping. */
+
+.zoom { overflow: clip; }
+.zoom > .zoom__in,
+.zoom.zoom--self {
+  transform: scale(.95);
+  transition: transform var(--e-d-slow) var(--e-ease);
+  will-change: transform;
+}
+.is-in.zoom > .zoom__in,
+.is-in.zoom.zoom--self { transform: scale(1); }
+
+.zoom--hover > .zoom__in { transition: transform var(--e-d-base) var(--e-ease); }
+.zoom--hover:hover > .zoom__in { transform: scale(1.05); }
+
+/* --------------------------------------------------------------- SLIDE ---
+   translateY(100%) inside a clipped box: the element arrives from outside
+   its own frame instead of fading. This is why the headings read as
+   printed rather than faded in.
+
+   NO display declaration in here, ever. Several of the elements this is
+   applied to are `display: grid`; forcing block collapsed their rows into
+   a vertical stack and every section below moved. A reveal utility owns
+   overflow and transform. Nothing else. */
+
+.slide { overflow: clip; }
+.slide > * {
+  transform: translateY(100%);
+  transition: transform var(--e-d-slow) var(--e-ease);
+}
+.is-in.slide > * { transform: translateY(0); }
+
+.slide--x > *      { transform: translateX(100%); }
+.is-in.slide--x > *{ transform: translateX(0); }
+.slide--left > *      { transform: translateX(-100%); }
+.is-in.slide--left > *{ transform: translateX(0); }
+
+/* Per-child stagger, written out rather than generated. Deterministic —
+   never Math.random(), which produces a different page on every reload and
+   is the single most recognisable AI-slop text animation. */
+.slide--stagger > *:nth-child(1) { transition-delay:   0ms; }
+.slide--stagger > *:nth-child(2) { transition-delay:  70ms; }
+.slide--stagger > *:nth-child(3) { transition-delay: 140ms; }
+.slide--stagger > *:nth-child(4) { transition-delay: 210ms; }
+.slide--stagger > *:nth-child(5) { transition-delay: 280ms; }
+.slide--stagger > *:nth-child(6) { transition-delay: 350ms; }
+.slide--stagger > *:nth-child(7) { transition-delay: 420ms; }
+.slide--stagger > *:nth-child(8) { transition-delay: 490ms; }
+
+/* ----------------------------------------------------------------- POP ---
+   48px for a block arriving, 8px for a chip settling. */
+
+.pop {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity var(--e-d-slow) var(--e-ease),
+              transform var(--e-d-slow) var(--e-ease);
+  transition-delay: var(--d, 0ms);
+}
+.is-in.pop { opacity: 1; transform: translateY(0); }
+
+.pop--short { transform: translateY(8px); transition-duration: var(--e-d-fast); }
+
+/* ---------------------------------------------------------------- MASK ---
+   The per-line clip used on display headings. The span inside is what
+   moves; the .mask itself never does. Pairs with SilkScroll.reveal() for
+   the per-character version. */
+
+.mask { display: block; overflow: clip; }
+.mask > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform var(--e-d-long) var(--e-silk);
+  transition-delay: var(--d, 0ms);
+}
+.is-in .mask > span,
+.is-in.mask > span { transform: translateY(0); }
+
+/* ---------------------------------------------------------------- RULE ---
+   A hairline that draws itself left-to-right instead of appearing. Cheap,
+   and it makes a section header feel authored. */
+
+.rule {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform var(--e-d-long) var(--e-silk);
+}
+.is-in .rule, .is-in.rule { transform: scaleX(1); }
+
+/* ---------------------------------------------------------------- IRIS ---
+   Cursor-reactive iridescence. The reference ships a hue-rotate keyframe
+   loop; this is driven by pointer position instead, so it reacts rather
+   than loops, and decays to 0 when the pointer leaves.
+
+   hue-rotate on a monochrome source produces NOTHING — there is no hue to
+   rotate. That is why the gradient underneath carries real saturation and
+   why this is confined to [data-iris] surfaces instead of being a
+   page-wide filter. It is the one place saturated colour is allowed, and
+   it is additive light on top, not a fill.
+
+   `.iris` is a real element injected by iris.js, deliberately NOT a
+   pseudo: the surfaces it lands on already use ::before for their plate
+   gradient and ::after for the halftone dots. An [data-iris]::before
+   competes at equal specificity for a slot already in use and silently
+   never paints. Three rewrites produced byte-identical pixels before that
+   was the answer. */
+
+[data-iris] { position: relative; }
+
+.iris {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  border-radius: inherit;
+  display: block;
+  opacity: var(--iris-a, 0);
+  filter: hue-rotate(calc(var(--iris-h, 0) * 1deg)) saturate(1.45);
+  background:
+    radial-gradient(78% 96% at var(--iris-x, 50%) var(--iris-y, 50%),
+      hsl(190 96% 60% / .90)  0%,
+      hsl(268 92% 60% / .58) 30%,
+      hsl(330 92% 58% / .30) 54%,
+      transparent 74%);
+  mix-blend-mode: screen;
+}
+
+/* the rim — this is what makes it read as an edge catching light rather
+   than a coloured blob sitting on the card */
+.iris::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: .55;
+  box-shadow: inset 0 0 0 1px hsl(calc(190 + var(--iris-h, 0)) 90% 74% / .5);
+}
+
+/* a light surface needs far less of it than a near-black plate */
+.btn .iris,
+.card--light .iris { opacity: calc(var(--iris-a, 0) * .5); }
+
+/* -------------------------------------------------------------- GRAIN ---
+   Procedural, from a data URI, so it costs no request. This plus the
+   gradient is what stops a flat off-white from reading as cheap. Under no
+   circumstances swap it for a colour. */
+
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------- HALFTONE ------
+   Dot screen over a flat panel. Also procedural. The reference uses a
+   raster PNG; a radial-gradient tile is the same read at none of the
+   weight, and it scales without resampling. */
+
+.halftone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: .5;
+  background-image: radial-gradient(rgba(var(--e-ink-rgb), .22) 1px, transparent 1.1px);
+  background-size: 5px 5px;
+  mask-image: linear-gradient(160deg, #000 0%, transparent 62%);
+  -webkit-mask-image: linear-gradient(160deg, #000 0%, transparent 62%);
+}
+
+/* ------------------------------------------------- REDUCED MOTION ------
+   Lands FINISHED, never disabled. Someone who asked their OS for less
+   motion asked for less motion, not for a broken page with invisible
+   headings. Every reveal resolves to its end state instantly; the iris
+   simply does not paint, which is its finished form because it carries no
+   state. */
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom > .zoom__in,
+  .zoom.zoom--self,
+  .slide > *,
+  .pop,
+  .mask > span,
+  .rule {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  .zoom--hover:hover > .zoom__in { transform: none !important; }
+  .iris { opacity: 0 !important; transition: none !important; }
+}

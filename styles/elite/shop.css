@@ -1,0 +1,121 @@
+/* ==========================================================================
+   ELITE GYM — shop chrome.
+   Ours, not part of the copied layout: the commerce section is the one part
+   of this page the reference design had no equivalent for.
+
+   THE BUG THIS FILE FIXES. The cart and the checkout render at the BOTTOM of
+   the catalogue, which on a five-category shop is roughly four thousand pixels
+   below the first Add button. Both worked perfectly and neither was reachable —
+   a customer added an item, saw a counter tick up in the header, and had no
+   route to a checkout. A working checkout nobody can find is a broken shop.
+   ========================================================================== */
+
+/* ---- the header cart counter ------------------------------------------
+   Without this the button renders as the word "Shop" with a bare digit glued
+   to it — "Shop1" — which reads as a typo rather than as a cart. */
+.nav-cart {
+  display: inline-grid;
+  place-items: center;
+  min-width: 21px;
+  height: 21px;
+  margin-left: 8px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--e-spring);
+  color: var(--e-ink);
+  font-family: var(--e-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  /* The engine sets [hidden] when the cart is empty. `display: inline-grid`
+     above would otherwise beat it and leave a permanent "0" in the nav. */
+}
+.nav-cart[hidden] { display: none; }
+
+/* ---- the checkout block ----------------------------------------------- */
+.shop-panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--e-gap);
+  align-items: start;
+  margin-top: 72px;
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 900px) {
+  .shop-panels { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+
+.shop-panel {
+  background: var(--e-white);
+  border-radius: var(--e-r-card);
+  padding: clamp(20px, 2.4vw, 34px);
+  box-shadow: var(--e-shadow-1);
+}
+
+/* An empty cart still paints a panel, and two empty boxes at the foot of a
+   shop look like something failed to load. The engine leaves the node empty,
+   so :empty is the honest hook. */
+.shop-panel:empty { display: none; }
+
+/* ---- the jump-to-checkout bar -----------------------------------------
+   Fixed, appears only once the cart has something in it. This is the actual
+   route from "I added a thing" to "I paid for it", and on a long catalogue it
+   is the only one that does not depend on the customer scrolling four thousand
+   pixels on faith. */
+.cart-jump {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px 12px 22px;
+  border-radius: 999px;
+  background: var(--e-ink);
+  color: var(--e-paper);
+  box-shadow: 0 10px 34px rgba(var(--e-ink-rgb), .32);
+  font-size: 15px;
+  /* Starts below the fold and slides up. transform only — a fixed element
+     animating `bottom` repaints the whole compositor layer every frame. */
+  transform: translateX(-50%) translateY(140%);
+  transition: transform var(--e-d-slow) var(--e-silk);
+  will-change: transform;
+}
+.cart-jump.is-on { transform: translateX(-50%) translateY(0); }
+
+.cart-jump__n {
+  font-family: var(--e-mono);
+  font-variant-numeric: tabular-nums;
+  opacity: .72;
+}
+
+.cart-jump__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--e-spring);
+  color: var(--e-ink);          /* ink on spring: 13.4:1. white would be 1.6:1 */
+  font-weight: 600;
+  transition: background var(--e-d-fast) var(--e-ease);
+}
+.cart-jump__go:hover { background: var(--e-spring-hi); }
+
+@media (max-width: 560px) {
+  .cart-jump {
+    left: 14px;
+    right: 14px;
+    transform: translateY(140%);
+    justify-content: space-between;
+    padding-left: 18px;
+  }
+  .cart-jump.is-on { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-jump { transition: none; }
+}

@@ -1,0 +1,76 @@
+/* SKIN — base. The safety net.
+ *
+ * Colours are ALLOWED in this folder and forbidden in engine/. That one line
+ * is the whole architecture.
+ *
+ * Three places can set a token. Later wins:
+ *   1. this file            — defaults, so nothing is ever undefined
+ *   2. another skin file    — a designed look, e.g. skins/mono.css
+ *   3. tenants.brand        — inline on <html> by engine/theme.js, per gym
+ *
+ * To restyle a gym: change row 3 from the admin panel. No deploy.
+ * To restyle every gym: write a new file in this folder.
+ *
+ * The list below is the full contract. engine/theme.js exports the same names,
+ * and `npm test` fails if engine.css reads a token missing from here — an
+ * undefined custom property does NOT fall back to the next value in a list, it
+ * invalidates the whole declaration, and the element silently renders unstyled.
+ */
+
+:root {
+  /* ── surfaces ─────────────────────────────────────────────────────────── */
+  --bg: #0b0b0c;
+  --surface: #141416;
+  --surface-2: #1b1b1e;
+  --border: #2a2a2e;
+
+  /* ── brand: the one accent the engine uses ────────────────────────────── */
+  --brand: #d6d6d6;
+  --brand-hover: #ffffff;
+  --brand-glow: #d6d6d6;
+  --brand-text: #0b0b0c; /* text that sits ON the brand colour */
+
+  /* ── type ─────────────────────────────────────────────────────────────── */
+  --text: #f2f2f2;
+  --text-muted: #9a9a9f;
+
+  /* ── state ────────────────────────────────────────────────────────────── */
+  --danger: #e5484d;
+
+  /* ── shape and type family ────────────────────────────────────────────── */
+  --radius: 4px;
+  --radius-lg: 8px;
+  --font-display: ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* ── material ─────────────────────────────────────────────────────────────
+     What a card is MADE of, not only what colour it is. A flat fill and a glass
+     fill are the same three declarations with different values, so they belong
+     in the token layer — otherwise "make it glassy" means editing the engine,
+     and the engine stops being reskinnable. */
+  --surface-fill: var(--surface);
+  --rim: none;
+  --shadow: none;
+  --glow: none;
+
+  /* Page texture. Flat colour reads cheap at any hue; a wide soft field plus
+     grain is what carries a premium read. Off here because it is a look, not a
+     requirement — skins/mono.css turns it on. */
+  --field: none;
+  --grain: none;
+  --grain-opacity: 0;
+
+  /* Catalog imagery is one filter away from matching any skin. A monochrome
+     skin sets grayscale(1) here and every product photo falls in line without
+     re-exporting a single file. */
+  --img-filter: none;
+  --img-filter-hover: none;
+
+  /* ── motion ───────────────────────────────────────────────────────────────
+     One ease, three durations. Naming them lets a skin slow the whole shop down
+     or switch to a springier curve without touching a keyframe. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 620ms;
+}

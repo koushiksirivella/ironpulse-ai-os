@@ -1,0 +1,764 @@
+{
+  "project": {
+    "name": "Premium Gym Demo Website",
+    "type": "full-demo-website-single-page",
+    "purpose": "Sales demo template for selling websites to gym owners who have no online presence",
+    "output_format": "Single .html file with ALL CSS and JS embedded inline — NO separate files",
+    "price_range": "₹14,999 - ₹49,999 setup, plus monthly. See pitch/ for the current ladder.",
+    "target_audience": "Local gym owners in India (age 30-55)",
+    "design_vibe": "Luxury dark gym — think Equinox, Gold's Gym VIP lounge, Rolex showroom meets fitness",
+    "quality_target": "Must look like a ₹1,00,000+ professionally built website"
+  },
+
+  "brand_tokens": {
+    "colors": {
+      "--gold": "#C6A75E",
+      "--gold-hover": "#A88A45",
+      "--gold-light": "rgba(198, 167, 94, 0.15)",
+      "--gold-glow": "rgba(198, 167, 94, 0.25)",
+      "--gold-glow-strong": "rgba(198, 167, 94, 0.35)",
+      "--blush": "#E8D8C3",
+      "--cream": "#F8F6F3",
+      "--charcoal": "#111111",
+      "--charcoal-2": "#1A1A1A",
+      "--charcoal-3": "#222222",
+      "--text-primary": "#F8F6F3",
+      "--text-secondary": "#999999",
+      "--text-muted": "#555555",
+      "--danger": "#E74C3C",
+      "--success": "#2ECC71"
+    },
+    "color_usage_rules": {
+      "page_background": "--charcoal (#111111)",
+      "alternate_section_bg": "--charcoal-2 (#1A1A1A)",
+      "card_backgrounds": "--charcoal-2 (#1A1A1A)",
+      "all_borders": "--charcoal-3 (#222222)",
+      "primary_accent_everywhere": "--gold (#C6A75E)",
+      "button_hover_state": "--gold-hover (#A88A45)",
+      "headings_and_body_text": "--cream (#F8F6F3)",
+      "paragraph_text": "--text-secondary (#999999)",
+      "labels_and_captions": "--text-muted (#555555)",
+      "soft_highlights": "--blush (#E8D8C3)",
+      "card_glow_on_hover": "--gold-glow (rgba 0.25)",
+      "featured_card_glow": "--gold-glow-strong (rgba 0.35)"
+    }
+  },
+
+  "typography": {
+    "headings": {
+      "font_family": "'Playfair Display', serif",
+      "google_fonts_import": "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');",
+      "link_tag": "<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap' rel='stylesheet'>",
+      "letter_spacing": "-0.02em",
+      "font_weight_default": "700",
+      "apply_to": "h1, h2, h3, .hero-title, .section-title, .price-amount, .stat-number, .preloader-logo"
+    },
+    "body": {
+      "font_family": "'Inter', sans-serif",
+      "google_fonts_import": "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');",
+      "link_tag": "<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' rel='stylesheet'>",
+      "letter_spacing": "normal",
+      "font_weight_default": "400",
+      "apply_to": "body, p, a, button, input, select, textarea, nav links, labels, captions"
+    },
+    "font_sizes": {
+      "hero_title": "clamp(3.5rem, 9vw, 8rem)",
+      "section_title": "clamp(2.5rem, 5vw, 4.5rem)",
+      "card_title": "1.5rem",
+      "navbar_logo": "1.8rem",
+      "body_large": "1.1rem",
+      "body_regular": "1rem",
+      "body_small": "0.9rem",
+      "button_text": "0.85rem",
+      "nav_link": "0.8rem",
+      "caption": "0.75rem",
+      "tag_label": "0.7rem",
+      "tiny": "0.65rem"
+    }
+  },
+
+  "animations_and_keyframes": {
+    "_instructions": "Implement ALL of these as @keyframes in the CSS. Every single one must be present in the final HTML file.",
+
+    "1_spotlight": {
+      "class_name": ".animate-spotlight",
+      "purpose": "Fades in + scales from offset center — use for hero background or featured images",
+      "keyframes_css": "@keyframes spotlight { from { opacity: 0; transform: scale(0.95) translate(-2%, 2%); } to { opacity: 1; transform: scale(1) translate(0, 0); } }",
+      "apply_css": "animation: spotlight 2s ease 0.75s forwards; opacity: 0;",
+      "where_to_use": ["hero section background element", "about section image"]
+    },
+
+    "2_fade_in_up": {
+      "class_name": ".animate-fade-in-up",
+      "purpose": "Primary reveal animation — slides up 28px while fading in",
+      "keyframes_css": "@keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }",
+      "apply_css": "animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0;",
+      "where_to_use": ["hero tag line", "hero title", "hero description", "hero buttons", "every section header"],
+      "delayed_variants": {
+        ".animate-fade-in-up-delay-1": {
+          "css": "animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; opacity: 0;",
+          "delay": "0.15s"
+        },
+        ".animate-fade-in-up-delay-2": {
+          "css": "animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; opacity: 0;",
+          "delay": "0.3s"
+        },
+        ".animate-fade-in-up-delay-3": {
+          "css": "animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards; opacity: 0;",
+          "delay": "0.45s"
+        }
+      },
+      "stagger_rule": "Apply delay-1 to second child, delay-2 to third child, delay-3 to fourth child within each section for cascade waterfall effect"
+    },
+
+    "3_gradient_shift": {
+      "class_name": ".animate-gradient-shift",
+      "purpose": "Moving gradient background — creates living luxury atmosphere",
+      "keyframes_css": "@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }",
+      "apply_css": "background-size: 200% 200%; animation: gradientShift 6s ease infinite;",
+      "where_to_use": ["hero section background", "CTA section background", "featured pricing card top border"]
+    },
+
+    "4_shiny_text": {
+      "class_name": ".animate-shiny-text",
+      "purpose": "Sliding gold shine highlight across text — VERY premium feel",
+      "keyframes_css": "@keyframes shinyText { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }",
+      "apply_css": "background: linear-gradient(90deg, var(--gold) 0%, var(--cream) 40%, var(--cream) 60%, var(--gold) 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shinyText 8s linear infinite;",
+      "where_to_use": ["hero title accent word ONLY (e.g., 'LEGEND')", "ONE section title accent word maximum per page"],
+      "max_usage": "2 elements per page — overuse kills the premium feel"
+    },
+
+    "5_navbar_slide_down": {
+      "class_name": ".animate-navbar-slide-down",
+      "purpose": "Navbar entrance animation on page load",
+      "keyframes_css": "@keyframes navbarSlideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }",
+      "apply_css": "animation: navbarSlideDown 0.3s ease forwards;",
+      "where_to_use": ["navbar element on page load"]
+    },
+
+    "6_navbar_dropdown": {
+      "class_name": ".animate-navbar-dropdown",
+      "purpose": "Dropdown/mobile menu reveal with 3D rotate",
+      "keyframes_css": "@keyframes navbarDropdown { from { opacity: 0; transform: rotateX(-10deg) scale(0.97); } to { opacity: 1; transform: rotateX(0) scale(1); } }",
+      "apply_css": "animation: navbarDropdown 0.2s ease forwards; transform-origin: top center;",
+      "where_to_use": ["mobile navigation menu when opened"]
+    },
+
+    "7_loader_spin": {
+      "class_name": ".loader",
+      "purpose": "Gold-bordered spinning circle for preloader",
+      "keyframes_css": "@keyframes loaderSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }",
+      "apply_css": "width: 40px; height: 40px; border: 3px solid var(--charcoal-3); border-top-color: var(--gold); border-radius: 50%; animation: loaderSpin 0.8s linear infinite;",
+      "where_to_use": ["preloader screen center"]
+    },
+
+    "8_accordion_down": {
+      "class_name": ".animate-accordion-down",
+      "purpose": "Expands FAQ answer from 0 to full height",
+      "keyframes_css": "@keyframes accordionDown { from { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; } to { max-height: 500px; opacity: 1; padding-top: 1rem; padding-bottom: 1.5rem; } }",
+      "apply_css": "animation: accordionDown 0.3s ease-out forwards; overflow: hidden;",
+      "where_to_use": ["FAQ answer panels when opened"]
+    },
+
+    "9_accordion_up": {
+      "class_name": ".animate-accordion-up",
+      "purpose": "Collapses FAQ answer to 0 height",
+      "keyframes_css": "@keyframes accordionUp { from { max-height: 500px; opacity: 1; padding-top: 1rem; padding-bottom: 1.5rem; } to { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; } }",
+      "apply_css": "animation: accordionUp 0.3s ease-out forwards; overflow: hidden;",
+      "where_to_use": ["FAQ answer panels when closed"]
+    },
+
+    "10_marquee": {
+      "class_name": ".marquee-track",
+      "purpose": "Infinite horizontal scroll for program/feature names",
+      "keyframes_css": "@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }",
+      "apply_css": "display: flex; gap: 4rem; animation: marqueeScroll 25s linear infinite; width: max-content;",
+      "where_to_use": ["marquee banner between hero and about section"]
+    },
+
+    "11_counter_animation": {
+      "type": "javascript",
+      "purpose": "Animated number counting from 0 to target on scroll into view",
+      "js_code": "function animateCounter(el) { const target = parseInt(el.getAttribute('data-count')); const suffix = el.getAttribute('data-suffix') || ''; const duration = 2000; const start = performance.now(); function update(now) { const elapsed = now - start; const progress = Math.min(elapsed / duration, 1); const eased = 1 - Math.pow(1 - progress, 3); el.textContent = Math.floor(eased * target).toLocaleString() + suffix; if (progress < 1) requestAnimationFrame(update); } requestAnimationFrame(update); }",
+      "trigger": "IntersectionObserver with threshold 0.5 — animate once when element enters viewport",
+      "where_to_use": ["hero stats", "about section stats", "any number that should count up"]
+    },
+
+    "12_shimmer_sweep": {
+      "class_name": ".shimmer-sweep",
+      "purpose": "Diagonal light sweep across buttons and cards",
+      "keyframes_css": "@keyframes shimmerSweep { from { left: -100%; } to { left: 150%; } }",
+      "apply_css_on_pseudo": "content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transform: skewX(-20deg);",
+      "trigger": "On hover — animation: shimmerSweep 0.6s ease;",
+      "where_to_use": ["shiny-gold-btn ::after", "featured pricing card on hover"]
+    },
+
+    "13_breathe_pulse": {
+      "class_name": ".breathe-pulse",
+      "purpose": "Subtle pulsing glow on text or elements — luxury breathing effect",
+      "keyframes_css": "@keyframes breathePulse { 0%, 100% { text-shadow: 0 0 10px rgba(198, 167, 94, 0.3); } 50% { text-shadow: 0 0 25px rgba(198, 167, 94, 0.6); } }",
+      "apply_css": "animation: breathePulse 3s ease-in-out infinite;",
+      "where_to_use": ["shiny-gold-btn inner text", "preloader logo text"]
+    },
+
+    "14_rotate_border": {
+      "class_name": ".rotate-border",
+      "purpose": "Rotating conic gradient for shiny button border effect",
+      "keyframes_css": "@keyframes rotateBorder { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }",
+      "apply_css": "animation: rotateBorder 4s linear infinite;",
+      "trigger": "Paused by default, plays on hover",
+      "where_to_use": ["shiny-gold-btn ::before pseudo element"]
+    },
+
+    "15_float": {
+      "class_name": ".animate-float",
+      "purpose": "Gentle floating up and down — decorative elements",
+      "keyframes_css": "@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }",
+      "apply_css": "animation: float 4s ease-in-out infinite;",
+      "where_to_use": ["decorative elements in hero", "scroll indicator arrow"]
+    }
+  },
+
+  "glow_and_shadow_effects": {
+    "_instructions": "Apply these as CSS classes available globally",
+
+    "gold_glow": {
+      "class_name": ".gold-glow",
+      "full_css": ".gold-glow { border: 1px solid var(--gold); box-shadow: 0 0 24px rgba(198, 167, 94, 0.25); }",
+      "where_to_use": ["featured pricing card", "highlighted testimonial", "CTA form container"]
+    },
+
+    "gold_glow_large": {
+      "class_name": ".gold-glow-lg",
+      "full_css": ".gold-glow-lg { border: 1px solid var(--gold); box-shadow: 0 0 48px rgba(198, 167, 94, 0.35); }",
+      "where_to_use": ["hero CTA button on hover", "one accent element max in hero section"]
+    },
+
+    "card_lift": {
+      "class_name": ".card-lift",
+      "full_css": ".card-lift { transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; } .card-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(198, 167, 94, 0.12); border-color: rgba(198, 167, 94, 0.3); }",
+      "where_to_use": ["EVERY interactive card — programs, pricing, trainers, testimonials, transformations"]
+    },
+
+    "gold_text_shadow": {
+      "class_name": ".gold-text-glow",
+      "full_css": ".gold-text-glow { text-shadow: 0 0 20px rgba(198, 167, 94, 0.4); }",
+      "where_to_use": ["hero title", "CTA section title"]
+    }
+  },
+
+  "background_and_texture_effects": {
+    "_instructions": "These create the luxury atmosphere. ALL must be present.",
+
+    "luxury_bg": {
+      "class_name": ".luxury-bg",
+      "full_css": ".luxury-bg { background: radial-gradient(ellipse at 15% 10%, rgba(198, 167, 94, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 90%, rgba(232, 216, 195, 0.05) 0%, transparent 50%), var(--charcoal); }",
+      "where_to_use": ["hero section", "CTA banner section"]
+    },
+
+    "grain_overlay": {
+      "class_name": ".grain-overlay",
+      "description": "Applied to body::before as fixed fullscreen texture — gives analog film feel",
+      "full_css": "body::before { content: ''; position: fixed; inset: 0; background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E\"); pointer-events: none; z-index: 9999; }",
+      "where_to_use": ["body::before — always present on entire page"]
+    },
+
+    "grid_pattern": {
+      "description": "Subtle gold grid lines in hero background for depth",
+      "full_css": ".hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(198, 167, 94, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(198, 167, 94, 0.03) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); }",
+      "where_to_use": ["hero section background layer"]
+    }
+  },
+
+  "decorative_elements": {
+    "gold_rule": {
+      "class_name": ".gold-rule",
+      "full_css": ".gold-rule { height: 1px; width: 100%; max-width: 200px; margin: 1.5rem auto; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); border: none; }",
+      "where_to_use": ["below every section tag/label before the title", "between testimonial cards as separator", "footer top border alternative"]
+    },
+
+    "custom_scrollbar": {
+      "full_css": "::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--charcoal); } ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; } ::-webkit-scrollbar-thumb:hover { background: var(--gold-hover); }",
+      "where_to_use": ["global — apply in base styles"]
+    },
+
+    "section_tag": {
+      "description": "Gold line + uppercase label above every section title",
+      "full_css": ".section-tag { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; } .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }",
+      "where_to_use": ["above EVERY section title throughout the page"]
+    },
+
+    "scroll_progress_bar": {
+      "description": "Gold progress bar at very top of viewport showing scroll position",
+      "full_css": ".scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-hover)); z-index: 100000; transition: width 0.1s; }",
+      "js_code": "window.addEventListener('scroll', () => { const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100; document.getElementById('scrollProgress').style.width = scrollPercent + '%'; });",
+      "where_to_use": ["fixed at top of page — always visible"]
+    }
+  },
+
+  "shiny_gold_button": {
+    "_instructions": "This is the PREMIUM button component. Use for primary CTAs only — max 3-4 per page.",
+    "class_name": ".shiny-gold-btn",
+
+    "full_css": ".shiny-gold-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; background: var(--gold); color: var(--charcoal); padding: 1.1rem 2.8rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; position: relative; overflow: hidden; transition: all 0.4s ease; } .shiny-gold-btn::before { content: ''; position: absolute; inset: -2px; background: conic-gradient(from 0deg, var(--gold), var(--gold-hover), var(--gold), var(--cream), var(--gold)); border-radius: inherit; z-index: -2; animation: rotateBorder 4s linear infinite paused; } .shiny-gold-btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: left 0.6s ease; } .shiny-gold-btn:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(198, 167, 94, 0.3); } .shiny-gold-btn:hover::before { animation-play-state: running; } .shiny-gold-btn:hover::after { left: 150%; } .shiny-gold-btn:focus { outline: 2px solid var(--gold); outline-offset: 3px; } .shiny-gold-btn:active { transform: translateY(1px); } .shiny-gold-btn .btn-text { position: relative; z-index: 1; animation: breathePulse 3s ease-in-out infinite; }",
+
+    "html_usage": "<a href='#contact' class='shiny-gold-btn'><span class='btn-text'>Start Your Journey →</span></a>",
+    "where_to_use": ["hero primary CTA", "featured pricing card CTA", "CTA banner section CTA", "contact form submit button"],
+    "max_per_page": 4
+  },
+
+  "secondary_button": {
+    "class_name": ".btn-outline",
+    "full_css": ".btn-outline { display: inline-flex; align-items: center; gap: 0.8rem; color: var(--cream); padding: 1.1rem 2.2rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: 1px solid var(--charcoal-3); background: transparent; cursor: pointer; transition: all 0.3s ease; } .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }",
+    "where_to_use": ["hero secondary CTA", "non-featured pricing card CTAs", "any secondary action"]
+  },
+
+  "scroll_reveal_system": {
+    "_instructions": "Apply .reveal class to EVERY content element that should animate on scroll. Use IntersectionObserver.",
+
+    "base_class": ".reveal",
+    "active_class": ".reveal-active",
+
+    "full_css": ".reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); } .reveal.reveal-active { opacity: 1; transform: translateY(0); } .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; } .reveal-delay-5 { transition-delay: 0.5s; }",
+
+    "full_js": "const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('reveal-active'); } }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));",
+
+    "usage_pattern": {
+      "section_tag": "class='section-tag reveal'",
+      "section_title": "class='section-title reveal reveal-delay-1'",
+      "first_card": "class='program-card card-lift reveal'",
+      "second_card": "class='program-card card-lift reveal reveal-delay-1'",
+      "third_card": "class='program-card card-lift reveal reveal-delay-2'",
+      "fourth_card": "class='program-card card-lift reveal reveal-delay-3'"
+    }
+  },
+
+  "website_sections": {
+    "_instructions": "Build sections in EXACTLY this order. Each section must include all specified features and effects.",
+    "total_sections": 14,
+    "build_order": [
+      "1_preloader",
+      "2_scroll_progress",
+      "3_navbar",
+      "4_hero",
+      "5_marquee_banner",
+      "6_about_with_stats",
+      "7_programs",
+      "8_trainers",
+      "9_transformations",
+      "10_pricing",
+      "11_testimonials",
+      "12_faq",
+      "13_cta_banner",
+      "14_contact_with_form",
+      "15_footer"
+    ],
+
+    "1_preloader": {
+      "description": "Full-screen loading screen — shows gym logo with gold spinning loader, disappears after 1.5s",
+      "structure": {
+        "container": "Fixed fullscreen, bg charcoal, z-index 99999, centered flex",
+        "logo": "Gym name in Playfair Display, 2.5rem, letter-spacing 6px, breathe-pulse animation",
+        "spinner": "Below logo — .loader class (gold spinning circle)",
+        "exit": "After 1.5s, add .hidden class — opacity 0, visibility hidden with 0.6s transition"
+      },
+      "effects_used": ["loader_spin", "breathe_pulse"],
+      "js": "window.addEventListener('load', () => { setTimeout(() => { document.querySelector('.preloader').classList.add('hidden'); }, 1500); });"
+    },
+
+    "2_scroll_progress": {
+      "description": "Thin gold bar at absolute top of viewport that fills as user scrolls",
+      "effects_used": ["scroll_progress_bar"]
+    },
+
+    "3_navbar": {
+      "description": "Fixed top navigation — transparent initially, glass-morphism on scroll",
+      "structure": {
+        "layout": "Flex, space-between, padded 1.2rem 4%",
+        "logo": "Left — gym name in Playfair Display, gold dot accent",
+        "links": "Center/right — About, Programs, Trainers, Results, Pricing (uppercase, 0.8rem, letter-spacing 2px)",
+        "cta": "Far right — shiny-gold-btn small variant (padding 0.7rem 1.8rem)",
+        "mobile": "Hamburger icon (three gold lines), opens fullscreen overlay menu"
+      },
+      "scroll_behavior": {
+        "default": "background: transparent",
+        "scrolled_class": ".navbar.scrolled",
+        "scrolled_css": "background: rgba(17,17,17,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--charcoal-3); padding: 0.8rem 4%;"
+      },
+      "effects_used": ["navbar_slide_down", "navbar_dropdown"],
+      "link_hover": "Gold underline slides in from left (::after pseudo, width 0 to 100%)"
+    },
+
+    "4_hero": {
+      "description": "Full viewport height — the first thing gym owners see. Must be jaw-dropping.",
+      "structure": {
+        "background_layers": [
+          "Layer 1: luxury-bg gradient",
+          "Layer 2: grid-pattern with radial mask",
+          "Layer 3: grain-overlay (on body, covers hero too)"
+        ],
+        "content": {
+          "tag_line": "Gold line + 'EST. 2019 — PREMIUM FITNESS' (animate-fade-in-up)",
+          "title": "Two lines — 'FORGE YOUR' on line 1, 'LEGEND' on line 2 with shiny-text animation (animate-fade-in-up-delay-1)",
+          "subtitle": "1-2 lines describing the gym (animate-fade-in-up-delay-2)",
+          "buttons": "Row — shiny-gold-btn primary + btn-outline secondary (animate-fade-in-up-delay-3)"
+        },
+        "right_stats": "Desktop only — three floating stats (members count, trainers count, satisfaction %) with counter animation",
+        "scroll_indicator": "Bottom center — small animated arrow bouncing down (animate-float)"
+      },
+      "effects_used": ["luxury_bg", "grid_pattern", "spotlight", "fade_in_up_with_delays", "shiny_text", "gradient_shift", "breathe_pulse", "float", "counter_animation", "gold_text_glow"]
+    },
+
+    "5_marquee_banner": {
+      "description": "Horizontal auto-scrolling strip — program names separated by gold diamonds",
+      "structure": {
+        "container": "border-top and border-bottom 1px charcoal-3, padding 1.2rem 0, overflow hidden",
+        "track": "Flex row, duplicate content for seamless loop",
+        "items": "Playfair Display, 1.3rem, letter-spacing 4px, text-muted color, each followed by gold ✦ symbol"
+      },
+      "content_items": ["STRENGTH TRAINING", "CROSSFIT", "YOGA", "HIIT CARDIO", "PERSONAL TRAINING", "NUTRITION", "BOXING", "CALISTHENICS"],
+      "effects_used": ["marquee"],
+      "note": "Duplicate all items twice in HTML for seamless infinite scroll"
+    },
+
+    "6_about_with_stats": {
+      "description": "Two-column section — image placeholder left, about text + stats right",
+      "bg": "var(--charcoal-2)",
+      "structure": {
+        "left_column": {
+          "image_placeholder": "Aspect-ratio 4:5, charcoal-2 bg, inner gradient, large faded text 'FIT NESS' at 8% gold opacity",
+          "gold_border_inset": "Absolute positioned 1px gold border 10px inside the image",
+          "spotlight_animation": "animate-spotlight on the image container"
+        },
+        "right_column": {
+          "section_tag": "'Who We Are' with gold line",
+          "section_title": "'MORE THAN A GYM' — 'GYM' in gold",
+          "paragraphs": "2 paragraphs describing the gym — text-secondary color, 1.8 line-height",
+          "stats_row": {
+            "layout": "3-column grid",
+            "each_stat": "Gold left border 2px, stat-number (Playfair, 2.8rem, gold, counter animated), stat-label (0.8rem, text-muted, uppercase)",
+            "stats": [
+              {"number": 15000, "suffix": "", "label": "Sq. Ft. Facility"},
+              {"number": 50, "suffix": "+", "label": "Weekly Classes"},
+              {"number": 6, "suffix": "+", "label": "Years Strong"}
+            ]
+          }
+        }
+      },
+      "effects_used": ["spotlight", "fade_in_up_staggered", "counter_animation"]
+    },
+
+    "7_programs": {
+      "description": "3-column grid of 6 program cards",
+      "bg": "var(--charcoal)",
+      "header": "Centered — tag 'What We Offer' + title 'TRAIN LIKE A CHAMPION' ('CHAMPION' in gold)",
+      "card_structure": {
+        "layout": "charcoal-2 bg, 1px charcoal-3 border, padding 2.5rem 2rem",
+        "number": "Large faded gold number (01-06) at 8% opacity, Playfair, 4rem",
+        "name": "Playfair Display, 1.5rem, letter-spacing 2px, cream color",
+        "description": "Inter, 0.9rem, text-secondary, line-height 1.7",
+        "meta_row": "Three items — duration, calories, level — 0.75rem, text-muted, uppercase",
+        "hover_top_border": "::before pseudo — 3px gold gradient bar, scaleX(0) to scaleX(1) on hover"
+      },
+      "card_count": 6,
+      "cards_data": [
+        {"number": "01", "name": "STRENGTH & POWER", "desc": "Progressive overload programs designed to build raw strength and functional power. From deadlifts to Olympic lifts — coached with precision.", "time": "60 Min", "cal": "500+ Cal", "level": "All Levels"},
+        {"number": "02", "name": "HIIT & CARDIO", "desc": "High-intensity interval training that torches fat, builds endurance, and leaves you feeling unstoppable. Fast-paced, heart-pumping sessions.", "time": "45 Min", "cal": "700+ Cal", "level": "Intermediate"},
+        {"number": "03", "name": "CROSSFIT WOD", "desc": "Constantly varied functional movements performed at high intensity. Every workout is different, and every day you get stronger.", "time": "50 Min", "cal": "600+ Cal", "level": "Advanced"},
+        {"number": "04", "name": "YOGA & MOBILITY", "desc": "Restore, recover, and rebuild. Our yoga program enhances flexibility, mental clarity, and overall performance in every other discipline.", "time": "60 Min", "cal": "250+ Cal", "level": "All Levels"},
+        {"number": "05", "name": "BOXING & MMA", "desc": "Learn combat sports from professional fighters. Build confidence, coordination, and explosive power with every punch and kick.", "time": "60 Min", "cal": "800+ Cal", "level": "All Levels"},
+        {"number": "06", "name": "PERSONAL TRAINING", "desc": "One-on-one sessions with certified experts. Custom programs, constant accountability, and guaranteed results within 90 days.", "time": "45 Min", "cal": "Custom", "level": "Personalized"}
+      ],
+      "effects_used": ["card_lift", "fade_in_up_staggered", "gold_top_border_hover"]
+    },
+
+    "8_trainers": {
+      "description": "4-column grid of trainer cards with image placeholders",
+      "bg": "var(--charcoal-2)",
+      "header": "Centered — tag 'Our Team' + title 'MEET YOUR COACHES' ('COACHES' in gold)",
+      "card_structure": {
+        "image_area": "Aspect-ratio 3:4, charcoal bg, centered initials (Playfair, 4rem, 15% gold opacity), scale 1.05 on hover",
+        "hover_overlay": "Gradient from transparent to black at bottom, slides up with star rating",
+        "info_below": "Name (Playfair, 1.3rem, letter-spacing 2px) + Role (0.75rem, gold, uppercase)"
+      },
+      "card_count": 4,
+      "trainers_data": [
+        {"initials": "RK", "name": "RAJESH KUMAR", "role": "Head Coach — Strength"},
+        {"initials": "PS", "name": "PRIYA SHARMA", "role": "Yoga & Wellness Lead"},
+        {"initials": "AV", "name": "ARJUN VERMA", "role": "CrossFit & HIIT"},
+        {"initials": "NP", "name": "NEHA PATEL", "role": "Boxing & MMA Coach"}
+      ],
+      "effects_used": ["card_lift", "fade_in_up_staggered", "image_scale_hover", "overlay_slide_up"]
+    },
+
+    "9_transformations": {
+      "description": "3-column grid of before/after transformation cards",
+      "bg": "var(--charcoal)",
+      "header": "Centered — tag 'Real Results' + title 'TRANSFORMATION STORIES' ('STORIES' in gold)",
+      "card_structure": {
+        "visual_area": "Split 50/50 — left (before) darker gradient, right (after) slight gold gradient",
+        "before_side": "Label 'BEFORE' top-left in muted badge, large weight number center (text-muted)",
+        "after_side": "Label 'AFTER' top-right in gold badge, large weight number center (gold color)",
+        "divider": "2px gold vertical line center with arrow → icon",
+        "info_below": "Name (Playfair, 1.2rem) + details showing weight change in gold"
+      },
+      "card_count": 3,
+      "transformations_data": [
+        {"name": "VIKRAM S.", "before": "95 kg", "after": "72 kg", "detail": "Lost 23 kg in 6 months • Strength program"},
+        {"name": "ANANYA R.", "before": "82 kg", "after": "68 kg", "detail": "Lost 14 kg in 4 months • HIIT program"},
+        {"name": "ROHIT M.", "before": "65 kg", "after": "75 kg", "detail": "Gained 10 kg muscle in 8 months • Strength"}
+      ],
+      "effects_used": ["card_lift", "fade_in_up_staggered"]
+    },
+
+    "10_pricing": {
+      "description": "3-column pricing table — Starter, Pro (featured), Elite",
+      "bg": "var(--charcoal-2)",
+      "header": "Centered — tag 'Membership' + title 'INVEST IN YOURSELF' ('YOURSELF' in gold/shiny-text)",
+      "card_structure": {
+        "layout": "charcoal-2 bg (charcoal bg for featured), 1px charcoal-3 border, padding 3rem 2rem",
+        "plan_name": "Playfair, 1.4rem, letter-spacing 3px, text-secondary",
+        "price": "Playfair, 4rem, cream — currency symbol in gold, 1.5rem, vertical-align top",
+        "period": "0.8rem, text-muted, letter-spacing 1px",
+        "features_list": "No bullets — checkmarks in gold, each item with border-bottom charcoal-3, padding 0.7rem 0",
+        "cta_button": "btn-outline for normal cards, shiny-gold-btn for featured card"
+      },
+      "featured_card": {
+        "class": ".price-card.featured",
+        "badge": "'Most Popular' — absolute top-right, gold bg, charcoal text, 0.65rem uppercase",
+        "border": "1px solid var(--gold)",
+        "background": "linear-gradient(180deg, rgba(198,167,94,0.06), var(--charcoal-2))",
+        "glow": "gold-glow class applied"
+      },
+      "plans_data": [
+        {
+          "name": "STARTER",
+          "price": "1,499",
+          "period": "per month",
+          "features": ["Full gym floor access", "Locker room & showers", "2 group classes / week", "Basic fitness assessment", "Mobile app access"],
+          "cta": "Get Started",
+          "featured": false
+        },
+        {
+          "name": "PRO",
+          "price": "2,999",
+          "period": "per month",
+          "features": ["Everything in Starter", "Unlimited group classes", "Monthly body composition", "Nutrition consultation", "Guest passes (2/month)"],
+          "cta": "Join Now",
+          "featured": true
+        },
+        {
+          "name": "ELITE",
+          "price": "5,999",
+          "period": "per month",
+          "features": ["Everything in Pro", "4 PT sessions / month", "Custom meal plans", "Recovery zone access", "Priority class booking"],
+          "cta": "Go Elite",
+          "featured": false
+        }
+      ],
+      "effects_used": ["gold_glow", "card_lift", "shiny_gold_btn", "fade_in_up_staggered", "shimmer_sweep_on_featured"]
+    },
+
+    "11_testimonials": {
+      "description": "2-column grid of 4 testimonial cards",
+      "bg": "var(--charcoal)",
+      "header": "Centered — tag 'Testimonials' + title 'WHAT MEMBERS SAY' ('SAY' in gold)",
+      "card_structure": {
+        "layout": "charcoal-2 bg, 1px charcoal-3 border, padding 2.5rem",
+        "quote_mark": "Playfair Display italic, 5rem, gold at 30% opacity",
+        "text": "Inter, 1rem, text-secondary, italic, line-height 1.8",
+        "author_row": "Flex — avatar (48px gold gradient square with Playfair initials) + name (0.9rem, 700) + since (0.75rem, text-muted) + gold stars"
+      },
+      "card_count": 4,
+      "testimonials_data": [
+        {"initials": "SK", "name": "Suresh K.", "since": "Member since 2022", "text": "JERAI completely changed my relationship with fitness. The trainers don't just count reps — they build discipline. I've never felt stronger or more confident in my life."},
+        {"initials": "DM", "name": "Deepa M.", "since": "Member since 2023", "text": "I tried 5 gyms before JERAI. The difference? Community. Everyone here genuinely wants you to succeed. Plus the facility is absolutely world-class for the price."},
+        {"initials": "AP", "name": "Amit P.", "since": "Member since 2021", "text": "Lost 18 kg in 5 months with the personal training program. Arjun designed a plan specifically for my schedule and body type. Worth every rupee invested."},
+        {"initials": "RG", "name": "Ritu G.", "since": "Member since 2024", "text": "As a working mother, I needed flexible hours and quick results. The HIIT classes fit perfectly into my lunch break and I've seen amazing changes in just 3 months."}
+      ],
+      "effects_used": ["card_lift", "fade_in_up_staggered"]
+    },
+
+    "12_faq": {
+      "description": "Accordion FAQ section — 6 common questions",
+      "bg": "var(--charcoal-2)",
+      "header": "Centered — tag 'Common Questions' + title 'FREQUENTLY ASKED' ('ASKED' in gold)",
+      "structure": {
+        "container": "Max-width 800px, centered",
+        "each_item": {
+          "question_row": "Flex space-between — question text (Inter, 1rem, 600 weight) + toggle icon (gold + / − sign, rotates on open)",
+          "answer_panel": "Hidden by default, accordion-down on open, accordion-up on close",
+          "answer_text": "Inter, 0.95rem, text-secondary, line-height 1.8, padding 1rem 0 1.5rem",
+          "divider": "1px charcoal-3 border-bottom between each item"
+        }
+      },
+      "faq_data": [
+        {"q": "Do I need prior fitness experience to join?", "a": "Not at all! Our programs cater to all levels — from complete beginners to competitive athletes. Every new member gets a free fitness assessment and our trainers will guide you through the correct form and technique."},
+        {"q": "What are your operating hours?", "a": "We're open Monday to Saturday from 5:00 AM to 11:00 PM, and Sunday from 6:00 AM to 8:00 PM. Our peak hours are 6-9 AM and 5-8 PM, so if you prefer a quieter workout, midday sessions are ideal."},
+        {"q": "Can I freeze or cancel my membership?", "a": "Yes! You can freeze your membership for up to 30 days per year at no extra cost. Cancellation requires a 15-day notice before your next billing cycle. No hidden fees, no questions asked."},
+        {"q": "Do you offer personal training packages?", "a": "Absolutely. Our Elite membership includes 4 PT sessions per month, or you can purchase standalone packages of 8, 16, or 24 sessions at discounted rates. Each session is 45 minutes with a certified trainer."},
+        {"q": "Is there parking available?", "a": "Yes, we have a dedicated parking area for both two-wheelers and four-wheelers with CCTV surveillance. Parking is complimentary for all members during their workout hours."},
+        {"q": "What makes JERAI different from other gyms?", "a": "Three things: world-class equipment that we update every 18 months, certified trainers who genuinely care about your progress (not just showing up), and a community culture where members motivate each other daily. Plus, our 15,000 sq ft facility gives you space to train without waiting for machines."}
+      ],
+      "effects_used": ["accordion_down", "accordion_up", "fade_in_up_staggered"],
+      "js": "Toggle .active class on FAQ items. Show/hide answer panel with accordion animations. Toggle + to − icon. Only one FAQ open at a time (close others when one opens)."
+    },
+
+    "13_cta_banner": {
+      "description": "Full-width centered call-to-action — dramatic and compelling",
+      "bg": "luxury-bg gradient with radial gold glow center",
+      "structure": {
+        "title": "Playfair, large — 'YOUR TRANSFORMATION STARTS TODAY' — 'TRANSFORMATION' in gold with gold-text-glow",
+        "subtitle": "Inter, 1.1rem, text-secondary, max-width 500px centered",
+        "button": "shiny-gold-btn — 'Claim Free Trial →'"
+      },
+      "padding": "8rem 4%",
+      "effects_used": ["luxury_bg", "fade_in_up", "shiny_gold_btn", "gold_text_glow", "gradient_shift"]
+    },
+
+    "14_contact_with_form": {
+      "description": "Two-column — info left, contact form right",
+      "bg": "var(--charcoal-2)",
+      "structure": {
+        "left_column": {
+          "header": "Tag 'Get In Touch' + title 'READY TO BEGIN?' ('BEGIN' in gold)",
+          "info_items": [
+            {"icon": "📍", "label": "LOCATION", "value": "42, MG Road, Koramangala\nBangalore, Karnataka 560034"},
+            {"icon": "📞", "label": "PHONE", "value": "+91 98765 43210"},
+            {"icon": "⏰", "label": "HOURS", "value": "Mon–Sat: 5:00 AM – 11:00 PM\nSunday: 6:00 AM – 8:00 PM"},
+            {"icon": "✉", "label": "EMAIL", "value": "info@jeraifitness.com"}
+          ],
+          "each_item": "Flex — 50px icon box (gold-light bg, 1px gold-light border, gold icon) + label (0.75rem, text-muted, uppercase, 2px spacing) + value (1rem, cream)"
+        },
+        "right_column": {
+          "form_fields": [
+            {"type": "text", "placeholder": "Your Name", "row_with": "Phone Number"},
+            {"type": "tel", "placeholder": "Phone Number", "row_with": "Your Name"},
+            {"type": "email", "placeholder": "Email Address", "full_width": true},
+            {"type": "select", "placeholder": "Interested In...", "options": ["Starter Membership", "Pro Membership", "Elite Membership", "Personal Training", "Free Trial Week"], "full_width": true},
+            {"type": "textarea", "placeholder": "Any message or questions...", "full_width": true, "rows": 5}
+          ],
+          "submit": "shiny-gold-btn — 'Send Message →'",
+          "input_style": "charcoal bg, 1px charcoal-3 border, cream text, Inter 0.9rem, gold border on focus, smooth transition"
+        }
+      },
+      "effects_used": ["fade_in_up_staggered", "shiny_gold_btn"]
+    },
+
+    "15_footer": {
+      "description": "Simple elegant footer",
+      "bg": "var(--charcoal) with border-top 1px charcoal-3",
+      "structure": {
+        "layout": "Flex space-between, aligned center, padding 3rem 4%",
+        "logo": "Playfair Display, 1.5rem, letter-spacing 4px — gold dot accent",
+        "copyright": "Inter, 0.8rem, text-muted — '© 2025 JERAI Fitness. All rights reserved.'",
+        "social_links": "Row of 4 icon boxes (40px, 1px charcoal-3 border, text-secondary, gold on hover) — IG, FB, YT, TW"
+      },
+      "effects_used": ["gold border hover on social icons"]
+    }
+  },
+
+  "responsive_breakpoints": {
+    "desktop": {
+      "range": "1024px and above",
+      "columns": {
+        "programs": "3 columns",
+        "trainers": "4 columns",
+        "transformations": "3 columns",
+        "pricing": "3 columns",
+        "testimonials": "2 columns",
+        "about": "2 columns (image + text)",
+        "contact": "2 columns (info + form)"
+      }
+    },
+    "tablet": {
+      "range": "768px to 1023px",
+      "changes": [
+        "Trainers: 2 columns",
+        "Hero stats: hidden",
+        "Section padding: 5rem 5%"
+      ]
+    },
+    "mobile": {
+      "range": "below 768px",
+      "changes": [
+        "ALL grids collapse to 1 column",
+        "Nav links hidden — hamburger menu shows fullscreen overlay",
+        "About image: hidden",
+        "Form row (name+phone): stack to 1 column",
+        "Hero buttons: stack vertically",
+        "Footer: stack vertically, center-aligned",
+        "Section padding: 4rem 5%",
+        "Trainers: 2 columns (stays)",
+        "Stats row: stays 3 columns but smaller gap"
+      ]
+    }
+  },
+
+  "customization_variables": {
+    "_instructions": "These are the ONLY fields that change per client. Everything else stays identical.",
+    "fields": {
+      "gym_name": {"current": "JERAI FITNESS", "swap_in": "Client's gym name"},
+      "gym_tagline": {"current": "Forge Your Legend", "swap_in": "Client's tagline or keep default"},
+      "address_line_1": {"current": "42, MG Road, Koramangala", "swap_in": "Client's address"},
+      "address_line_2": {"current": "Bangalore, Karnataka 560034", "swap_in": "Client's city/pin"},
+      "phone": {"current": "+91 98765 43210", "swap_in": "Client's phone"},
+      "email": {"current": "info@jeraifitness.com", "swap_in": "Client's email"},
+      "hours_weekday": {"current": "Mon–Sat: 5:00 AM – 11:00 PM", "swap_in": "Client's hours"},
+      "hours_weekend": {"current": "Sunday: 6:00 AM – 8:00 PM", "swap_in": "Client's weekend hours"},
+      "established_year": {"current": "2019", "swap_in": "Client's year"},
+      "pricing_starter": {"current": "₹1,499", "swap_in": "Client's basic price"},
+      "pricing_pro": {"current": "₹2,999", "swap_in": "Client's mid price"},
+      "pricing_elite": {"current": "₹5,999", "swap_in": "Client's premium price"},
+      "trainer_names": {"current": ["Rajesh Kumar", "Priya Sharma", "Arjun Verma", "Neha Patel"], "swap_in": "Client's trainer names"},
+      "social_links": {"current": {"instagram": "#", "facebook": "#", "youtube": "#", "twitter": "#"}, "swap_in": "Client's social URLs"},
+      "copyright_year": {"current": "2025", "swap_in": "Current year"}
+    }
+  },
+
+  "performance_rules": {
+    "no_external_js_libraries": true,
+    "no_jquery": true,
+    "css_animations_over_js": true,
+    "intersection_observer_for_reveals": true,
+    "intersection_observer_for_counters": true,
+    "all_fonts_from_google_fonts": true,
+    "single_file_output": true,
+    "no_images_required": "All visuals use CSS gradients, patterns, and typography as placeholders"
+  },
+
+  "claude_code_build_instructions": {
+    "_priority": "Follow these steps EXACTLY in order. Do not skip any step.",
+    "step_01": "Read this entire JSON file completely before writing any code",
+    "step_02": "Create a single HTML file with embedded <style> and <script> tags",
+    "step_03": "Add both Google Fonts link tags in <head>",
+    "step_04": "Define ALL CSS custom properties from brand_tokens at :root level",
+    "step_05": "Implement ALL 15 @keyframes animations from animations_and_keyframes section",
+    "step_06": "Implement ALL glow/shadow effect classes from glow_and_shadow_effects",
+    "step_07": "Implement ALL background/texture effects from background_and_texture_effects",
+    "step_08": "Implement ALL decorative elements from decorative_elements",
+    "step_09": "Implement the complete shiny-gold-btn system with all pseudo-elements and states",
+    "step_10": "Implement the btn-outline secondary button",
+    "step_11": "Implement the scroll-reveal system (.reveal classes + IntersectionObserver JS)",
+    "step_12": "Build the preloader (section 1)",
+    "step_13": "Build the scroll progress bar (section 2)",
+    "step_14": "Build the navbar with scroll behavior (section 3)",
+    "step_15": "Build the hero section with ALL specified effects (section 4)",
+    "step_16": "Build the marquee banner (section 5)",
+    "step_17": "Build the about section with stats and counters (section 6)",
+    "step_18": "Build the programs grid with all 6 cards (section 7)",
+    "step_19": "Build the trainers grid with all 4 cards (section 8)",
+    "step_20": "Build the transformations grid with all 3 cards (section 9)",
+    "step_21": "Build the pricing section with featured card + gold-glow (section 10)",
+    "step_22": "Build the testimonials grid with all 4 cards (section 11)",
+    "step_23": "Build the FAQ accordion with all 6 items (section 12)",
+    "step_24": "Build the CTA banner (section 13)",
+    "step_25": "Build the contact section with form (section 14)",
+    "step_26": "Build the footer (section 15)",
+    "step_27": "Add ALL JavaScript — preloader, scroll progress, navbar scroll, menu toggle, scroll reveal observer, counter animation observer, FAQ accordion toggle, smooth scroll for anchor links, back-to-top button",
+    "step_28": "Add responsive CSS for tablet (768-1023px) and mobile (below 768px)",
+    "step_29": "Test that every animation class is used at least once in the HTML",
+    "step_30": "Verify the file is a single complete HTML document that works by opening in any browser",
+    "final_quality_check": "The website must look and feel like it costs ₹1,00,000+ to build. Every section must have scroll reveal animations. Every card must have the card-lift hover effect. The gold theme must be consistent throughout. Grain overlay must be visible on the entire page."
+  }
+}

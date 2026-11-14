@@ -1,0 +1,52 @@
+/* SKIN — daylight.
+ *
+ * Exists to prove the point. Light background, different accent, different
+ * type, rounded corners — the opposite of J7 in every token, and the engine
+ * code is byte-for-byte identical underneath.
+ *
+ * A second gym that wants a light site costs one file, not one project.
+ */
+
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-2: #f1efe9;
+  --border: #dcd8cf;
+
+  --brand: #1f6f4a;
+  --brand-hover: #17563a;
+  --brand-glow: #2f9e6b;
+  --brand-text: #ffffff;
+
+  --text: #17181a;
+  --text-muted: #6b6b70;
+
+  --danger: #b4232a;
+
+  --radius: 14px;
+  --radius-lg: 20px;
+  --font-display: "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+
+  /* Paper, not glass. On a light ground a translucent white fill is invisible,
+     so the material here is a soft drop shadow and a hairline instead — the
+     same three tokens, an opposite reading. */
+  --surface-fill: linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
+  --rim: inset 0 1px 0 #ffffff;
+  --shadow: 0 12px 28px -18px rgba(23, 24, 26, 0.35);
+  --glow: 0 0 0 4px rgba(47, 158, 107, 0.14);
+
+  --field: radial-gradient(110% 70% at 8% -10%, rgba(31, 111, 74, 0.05) 0%, transparent 62%);
+  --grain: none;
+  --grain-opacity: 0;
+
+  /* Warmed rather than desaturated: the same monochrome masters read as a
+     deliberate duotone on paper instead of as photos that failed to load. */
+  --img-filter: grayscale(0.35) sepia(0.12) contrast(1.02);
+  --img-filter-hover: grayscale(0.1) sepia(0.05) contrast(1.05);
+
+  --ease: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-1: 160ms;
+  --dur-2: 280ms;
+  --dur-3: 520ms;
+}

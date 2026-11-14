@@ -1,0 +1,131 @@
+/* ==========================================================================
+   ELITE GYM — brand.css
+   The one place the brand is defined. Storefront and admin both read this,
+   which is the only reason the two surfaces look like one company.
+
+   Palette source: the four reference swatches, verbatim —
+     #FFFFFF  #FBFCF7  #B1E743  #22201F
+   Neutral ramp source: the butter.video scrape (every value R=G=B).
+
+   THE ACCENT RULE. There is exactly one hue on either surface: spring
+   #B1E743. Every other colour in this file is a pure neutral (R=G=B) or a
+   measured off-white. A second hue is not a design decision here, it is a
+   bug — status is carried by brightness rank and by the accent, never by
+   red/amber/green.
+   ========================================================================== */
+
+:root {
+  /* ---- the four brand swatches -------------------------------------- */
+  --e-white:   #ffffff;   /* cards sitting on paper                      */
+  --e-paper:   #fbfcf7;   /* the page ground                             */
+  --e-spring:  #b1e743;   /* THE accent. the only hue that exists        */
+  --e-ink:     #22201f;   /* primary text, dark buttons, the dark panel  */
+
+  /* accent relatives, derived not invented: same hue, moved on L only */
+  --e-spring-hi:  #c4ee6d;   /* hover                                    */
+  --e-spring-lo:  #97cf24;   /* pressed / underline                      */
+  --e-spring-wash:#eef8d6;   /* tint fills, chart ghosts                 */
+
+  /* ---- neutral ramp (butter scrape, every one R=G=B) ---------------- */
+  --e-n-900: #0f0f0f;   /* deepest ink, dark buttons                     */
+  --e-n-800: #1e1e1e;   /* dark panel rows                               */
+  --e-n-700: #2e2e2e;   /* chips inside dark UI                          */
+  --e-n-600: #4a4a4a;
+  --e-n-500: #767676;   /* the lowest text that still passes AA on paper */
+  --e-n-400: #b6b6b6;   /* captions                                      */
+  --e-n-300: #d6d6d6;   /* the hero gradient top                         */
+  --e-n-200: #ededed;   /* big cards, footer                             */
+  --e-n-100: #f4f4f2;   /* inset fields                                  */
+  --e-n-050: #fafafa;   /* the page sheet                                */
+
+  /* alpha steps off the ink — one triplet, four stops. This is what
+     keeps secondary text reading as dimmed ink instead of a second grey. */
+  --e-ink-rgb: 34, 32, 31;
+  --e-ink-60: rgba(var(--e-ink-rgb), .60);
+  --e-ink-40: rgba(var(--e-ink-rgb), .40);
+  --e-ink-30: rgba(var(--e-ink-rgb), .30);
+  --e-ink-12: rgba(var(--e-ink-rgb), .12);
+  --e-ink-08: rgba(var(--e-ink-rgb), .08);
+  --e-ink-06: rgba(var(--e-ink-rgb), .06);
+  --e-hair:   rgba(var(--e-ink-rgb), .10);
+
+  /* ---- type ---------------------------------------------------------
+     Figtree is the reference's face and is SIL Open Font Licence, so it
+     is ours to ship. Geist Mono carries labels and every numeral in a
+     table, because a table of prices in a proportional face never lines
+     up on the decimal. */
+  --e-font:  "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --e-mono:  "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* fluid scale, measured off a 1440 frame: size / 1440 * 100 = vw */
+  --e-t-h1:    clamp(2.75rem, 7.470vw, 8.25rem);
+  --e-t-h2:    clamp(2.00rem, 4.194vw, 4.60rem);
+  --e-t-h3:    clamp(1.65rem, 3.157vw, 3.45rem);
+  --e-t-h4:    clamp(1.25rem, 1.944vw, 1.75rem);
+  --e-t-lead:  clamp(1.15rem, 1.700vw, 1.60rem);
+  --e-t-body:  clamp(1.00rem, 1.441vw, 1.35rem);
+  --e-t-ui:    1.0625rem;   /* 17px, fixed — UI does not scale with page */
+  --e-t-sm:    0.9375rem;   /* 15px                                      */
+  --e-t-label: 0.75rem;     /* 12px, mono, tracked out                   */
+
+  --e-lh-display: .985;   /* display sizes sit UNDER 1.0 or they float   */
+  --e-lh-h2:      .970;
+  --e-lh-h3:      .960;
+  --e-lh-lead:   1.150;
+  --e-lh-body:   1.160;
+  --e-lh-ui:     1.500;
+
+  /* tracking is a near-zero POSITIVE number at every size except labels */
+  --e-tr-h1:   .0032em;
+  --e-tr-h2:   .0060em;
+  --e-tr-h3:   .0080em;
+  --e-tr-lead: .0300em;
+  --e-tr-body: .0330em;
+  --e-tr-label:.0900em;
+
+  /* ---- radius language, lifted from the reference ------------------- */
+  --e-r-sheet: 60px;   /* the page sheet's bottom corners                */
+  --e-r-card:  32px;   /* big cards                                      */
+  --e-r-mid:   20px;   /* panels inside cards                            */
+  --e-r-pill:  999px;  /* nav pill, chips, the accent tab                */
+  --e-r-btn:   12px;   /* buttons                                        */
+  --e-r-ui:    11px;   /* rows in the dark UI, inputs                    */
+
+  /* ---- grid: 12 x 86.06px, 25px gap, 1307.81 inside 1440 ------------ */
+  --e-cols:      12;
+  --e-gap:       25px;
+  --e-gutter:    clamp(20px, 4.59vw, 66.09px);
+  --e-container: 1307.81px;
+
+  /* ---- motion --------------------------------------------------------
+     Two curves and no more. --e-ease is the reference's own bezier, the
+     only one in its bundle, and using one curve everywhere is most of why
+     a page feels coherent. --e-silk is the haoqi curve: long slow head,
+     violent snap tail. It is for things that LAND — a panel arriving, a
+     tab switching — never for a hover. */
+  --e-ease: cubic-bezier(.16, 1, .3, 1);
+  --e-silk: cubic-bezier(.66, 0, .01, 1);
+
+  --e-d-fast: .22s;
+  --e-d-base: .40s;
+  --e-d-slow: .66s;
+  --e-d-long: 1.1s;
+
+  /* ---- elevation. Shadows are ink at low alpha, never black, never a
+     hue. Two steps: a resting card and a lifted one. */
+  --e-shadow-1: 0 1px 2px rgba(var(--e-ink-rgb), .04),
+                0 4px 16px rgba(var(--e-ink-rgb), .04);
+  --e-shadow-2: 0 2px 4px rgba(var(--e-ink-rgb), .05),
+                0 12px 40px rgba(var(--e-ink-rgb), .08);
+  --e-shadow-accent: 0 8px 28px rgba(177, 231, 67, .38);
+}
+
+/* Geist Mono is vendored so a table of numbers still lines up when Google
+   Fonts is blocked. Figtree is linked, and its fallback stack is a real
+   stack rather than a bare sans-serif for the same reason. */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../../assets/fonts/GeistMono.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}

@@ -1,0 +1,646 @@
+/* Engine styles.
+ *
+ * THE RULE THAT MAKES THIS A PRODUCT: not one colour value in this file.
+ * Every colour is a custom property read through var(). The names come from
+ * engine/theme.js, the fallback values from skins/, and the live values from
+ * `tenants.brand` in the database.
+ *
+ * Checked, not trusted:
+ *   grep -REn "#[0-9a-fA-F]{3,8}|rgba?\(" engine/     -> must print nothing
+ * `npm test` runs that same check, so it cannot rot silently.
+ *
+ * Translucency is built with color-mix() over a token instead of a literal
+ * alpha value, which is how a hover sheen can exist here without this file
+ * knowing a single colour. Change --brand-glow in the admin panel and every
+ * sheen, outline and highlight in the shop moves with it.
+ *
+ * (The scanner above is a plain line grep and does not skip comments. That is
+ * deliberate — teaching it to parse CSS is how it starts missing real leaks —
+ * so a colour notation cannot be written even in prose in this file.)
+ *
+ * Deliberately no `transition: all`, no fixed pixel font sizes on body copy,
+ * and no `!important`. The skin has to be able to win.
+ */
+
+/* ------------------------------------------------------- shop surface */
+
+/* The mount points are the engine's surface, so page texture belongs on them.
+ * A host page that already has its own background sets `--field: none` and
+ * nothing here changes. */
+[data-j7-mount='catalog'],
+[data-j7-mount='cart'],
+[data-j7-mount='checkout'] {
+  position: relative;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+/* Fixed to the viewport, not absolute to the mount.
+ *
+ * A radial gradient sized in percentages of its own box ends exactly where that
+ * box ends, and the catalog mount is narrower than the page — which draws a
+ * visible lighter rectangle with four hard edges and reads as a stray panel
+ * rather than as light. Fixed makes it a wash behind the whole page, which is
+ * what a gradient field is supposed to be.
+ *
+ * A host page that already paints its own background sets `--field: none` and
+ * neither layer renders at all. */
+[data-j7-mount='catalog']::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--field);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grain is what stops a flat fill reading as cheap. Separate from the field
+ * because the two want different opacities, and folding them together is how a
+ * background ends up muddy. */
+[data-j7-mount='catalog']::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-j7-mount='catalog'] > * {
+  position: relative;
+  z-index: 1;
+}
+
+.j7-grid,
+.j7-lines,
+.j7-form,
+.j7-confirm,
+.j7-fatal {
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------- catalog */
+
+.j7-catnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.75rem;
+}
+
+.j7-catnav-link {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  background: var(--surface-fill);
+  padding: 0.55rem 1.05rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--rim);
+  transition:
+    color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
+
+.j7-catnav-link:hover,
+.j7-catnav-link:focus-visible {
+  color: var(--text);
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+
+.j7-cat {
+  margin-block: 4.5rem;
+  scroll-margin-top: 5rem;
+}
+
+.j7-cat:first-child {
+  margin-top: 0;
+}
+
+/* Asymmetric section head: the title sits left and a hairline runs out to the
+ * right edge. Costs nothing, and it is the difference between a page that looks
+ * designed and a page that looks like a list of products. */
+.j7-cat-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.j7-cat-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.j7-cat-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.375rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+.j7-cat-count {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  /* Static. A counting-up number is decoration; the value is the point. */
+  font-variant-numeric: tabular-nums;
+}
+
+.j7-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+/* ---------------------------------------------------------------- card */
+
+.j7-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-fill);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--rim), var(--shadow);
+  overflow: hidden;
+  transform: perspective(900px) rotateX(var(--j7-tilt-x, 0deg)) rotateY(var(--j7-tilt-y, 0deg));
+  transition:
+    transform var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+.j7-card:hover {
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
+  box-shadow: var(--rim), var(--shadow), var(--glow);
+}
+
+/* The sheen follows the pointer via --j7-px/--j7-py from motion.js. It is the
+ * one distinctive interaction on this surface — everything else here is
+ * restraint, and one deliberate flourish reads better than five. */
+.j7-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    36rem circle at var(--j7-px, 50%) var(--j7-py, 50%),
+    color-mix(in srgb, var(--brand-glow) 14%, transparent),
+    transparent 45%
+  );
+  transition: opacity var(--dur-2) var(--ease);
+}
+
+.j7-card:hover::after {
+  opacity: 1;
+}
+
+.j7-card-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.j7-card-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  filter: var(--img-filter);
+  transform: scale(1.005); /* hides the sub-pixel seam a scale transition leaves */
+  transition:
+    transform var(--dur-3) var(--ease),
+    filter var(--dur-3) var(--ease);
+}
+
+.j7-card:hover .j7-card-img {
+  transform: scale(1.045);
+  filter: var(--img-filter-hover);
+}
+
+.j7-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  flex: 1;
+}
+
+.j7-tag {
+  align-self: flex-start;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand);
+  border: 1px solid color-mix(in srgb, var(--brand) 40%, transparent);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.55rem;
+}
+
+.j7-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+}
+
+.j7-card-desc,
+.j7-note {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.j7-note {
+  font-size: 0.8125rem;
+}
+
+.j7-card-foot {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+}
+
+.j7-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.j7-price,
+.j7-grand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- cart */
+
+.j7-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.j7-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.j7-line-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 10rem;
+  flex: 1;
+}
+
+.j7-line-name {
+  color: var(--text);
+}
+
+.j7-line-opts {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.j7-line-side {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.j7-line-qty,
+.j7-line-total {
+  color: var(--text);
+  min-width: 3.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.j7-totals {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  color: var(--text-muted);
+}
+
+.j7-empty {
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+}
+
+/* ------------------------------------------------------------ checkout */
+
+.j7-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  max-width: 34rem;
+}
+
+.j7-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* `hidden` is a presentation hint from the UA stylesheet, and ANY author
+ * `display` rule beats it. Without this line the delivery-address field stays
+ * on screen after picking "collect at the gym" — render.js sets .hidden and
+ * nothing happens, which looks like the radio button is broken. */
+.j7-field[hidden] {
+  display: none;
+}
+
+.j7-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.j7-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.j7-input {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  width: 100%;
+  transition:
+    border-color var(--dur-1) var(--ease),
+    box-shadow var(--dur-1) var(--ease);
+}
+
+.j7-input:focus-visible {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 22%, transparent);
+}
+
+.j7-qty {
+  width: 4.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.j7-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.j7-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.j7-radio input {
+  accent-color: var(--brand);
+}
+
+.j7-error {
+  font-size: 0.8125rem;
+  color: var(--danger);
+}
+
+.j7-error-top {
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+}
+
+/* ------------------------------------------------------------- buttons */
+
+.j7-btn {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transform: translate(var(--j7-mx, 0), var(--j7-my, 0));
+  transition:
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    transform var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+.j7-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.j7-btn[disabled] {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.j7-btn-primary {
+  background: var(--brand);
+  color: var(--brand-text);
+  border-color: var(--brand);
+}
+
+.j7-btn-primary:hover:not([disabled]) {
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
+  box-shadow: var(--glow);
+}
+
+.j7-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.j7-btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--brand);
+}
+
+.j7-btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* ------------------------------------------- confirmation and failure */
+
+.j7-confirm,
+.j7-fatal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: flex-start;
+  background: var(--surface-fill);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--rim), var(--shadow);
+  padding: 1.75rem;
+  max-width: 34rem;
+}
+
+.j7-fatal {
+  border-left-color: var(--danger);
+}
+
+.j7-confirm-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+}
+
+.j7-confirm-no strong {
+  color: var(--brand);
+  letter-spacing: 0.06em;
+}
+
+/* --------------------------------------------------------------- motion
+ *
+ * Everything below is additive. `[data-j7-reveal]` is visible here, and is only
+ * hidden once <html> carries `data-j7-motion="on"` — which engine/motion.js
+ * sets after it has confirmed it can both observe and reveal again.
+ *
+ * Written the other way round — hidden by default, shown by JS — a page with JS
+ * disabled, a crawler, a print, or a failed module load shows an empty shop.
+ * That failure mode is silent and total, which is the worst kind.
+ */
+
+/* Mask-line reveal: the text slides up out of a clipped box. */
+.j7-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.j7-mask > span {
+  display: inline-block;
+}
+
+[data-j7-motion='on'] .j7-mask > span {
+  transform: translateY(105%);
+  transition: transform var(--dur-3) var(--ease);
+}
+
+[data-j7-motion='on'] [data-j7-in] .j7-mask > span {
+  transform: translateY(0);
+}
+
+/* Reveal on cards, staggered per grid by --j7-i from motion.js. */
+[data-j7-motion='on'] [data-j7-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-3) var(--ease),
+    transform var(--dur-3) var(--ease);
+  transition-delay: calc(var(--j7-i, 0) * 55ms);
+}
+
+[data-j7-motion='on'] [data-j7-reveal][data-j7-in] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The media panel wipes open rather than fading — a fade on a photo reads as a
+ * slow image load, which is the one thing it must not look like. */
+[data-j7-motion='on'] [data-j7-reveal] .j7-card-media {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--dur-3) var(--ease);
+  transition-delay: calc(var(--j7-i, 0) * 55ms + 60ms);
+}
+
+[data-j7-motion='on'] [data-j7-reveal][data-j7-in] .j7-card-media {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Someone using reduced motion asked for it. Honour it — motion.js also
+ * early-returns, so this block is the belt to its braces. */
+@media (prefers-reduced-motion: reduce) {
+  .j7-btn,
+  .j7-catnav-link,
+  .j7-card,
+  .j7-card-img,
+  .j7-input,
+  .j7-card-media {
+    transition: none;
+    animation: none;
+  }
+
+  [data-j7-motion='on'] [data-j7-reveal],
+  [data-j7-motion='on'] .j7-mask > span {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  [data-j7-motion='on'] [data-j7-reveal] .j7-card-media {
+    clip-path: none;
+    transition: none;
+  }
+
+  .j7-card {
+    transform: none;
+  }
+}

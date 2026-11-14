@@ -1,0 +1,173 @@
+/* SKIN — studio. Light monochrome, editorial.
+ *
+ * Theme #4. Rebuilt 2026-08-24 as a close structural clone of the reference
+ * recorded in _scrape/butter-video/ — this pass replaces the earlier
+ * approximations with the values actually measured off that page.
+ *
+ * WHAT IS CLONED: the light ground, the 12-column geometry, the viewport-
+ * locked display scale against a fixed 18px body, the tracking opposition
+ * between display and eyebrow, the large soft radii, the damped motion.
+ * WHAT IS NOT: the reference's copy, wordmark, photography, and its two
+ * licensed typefaces (DieGrotesk / ABCDiatype), none of which appear here.
+ * A system can be rebuilt; someone else's assets cannot be taken.
+ *
+ * THE INVERSION. mono.css is white-on-black and makes white the accent.
+ * This skin is the same discipline flipped: near-black ink on a near-white
+ * ground, and the accent is BLACK. A black pill on paper is the loudest thing
+ * a monochrome page can say, exactly as a white pill is on a dark one.
+ *
+ * THE RULE, unchanged: every neutral is R=G=B exactly. Checkable by regex,
+ * which is the point. There is no accent hue anywhere in this file.
+ *
+ * Fonts: Inter Tight for display, Inter for body, JetBrains Mono for the
+ * eyebrow. Link them from the host page — an @import here blocks rendering
+ * until it resolves, and the fallback stack below is what shows while they
+ * load.
+ */
+
+:root {
+  /* ── surfaces ───────────────────────────────────────────────────────────
+     Measured, not guessed. The reference reports #FAFAFA and #EDEDED six
+     times each; #EDEDED is its panel, and using anything else is part of what
+     made the first attempt read as "similar" rather than "the same". */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #ededed;
+
+  /* Exactly one hairline value on the whole reference page, at exactly this
+     alpha. R=G=B, so the mono rule holds straight through it. */
+  --border: rgba(53, 53, 53, 0.2);
+
+  /* ── brand: black IS the accent ─────────────────────────────────────────
+     #0F0F0F is the dominant colour of the reference — 602 elements. The hover
+     is its own measured value (rgb(46,46,46), 2 uses: the two pill buttons).
+     --brand-text is the colour of type sitting ON a brand-filled button, so
+     on a black pill it has to be the ground colour. */
+  --brand: #0f0f0f;
+  --brand-hover: #2e2e2e;
+  --brand-glow: #0f0f0f;
+  --brand-text: #fafafa;
+
+  /* ── type ───────────────────────────────────────────────────────────────
+     The reference runs muted body copy at rgba(15,15,15,0.4), which resolves
+     to about #9D9D9D on this ground — roughly 2.7:1, failing WCAG AA for body
+     text. This token is the nearest value that passes (about 4.9:1) so the
+     page still reads at a glance. The reference's own decorative grey is kept
+     intact below as --ornament, used only where it is not body copy.
+     A design nobody can read is not a design that was cloned faithfully. */
+  --text: #0f0f0f;
+  --text-muted: #737373;
+
+  /* Status as a brightness rank, not a hue — the same rule mono.css runs, read
+     the other way up. On a light ground the DARKEST thing in a block is the
+     most urgent, so an error is pure black beside a rule. */
+  --danger: #000000;
+
+  /* ── shape ──────────────────────────────────────────────────────────────
+     Large and soft. After the light ground this is the most recognisable
+     thing about the reference. Measured off its media containers. */
+  --radius: 16px;
+  --radius-lg: 24px;
+
+  --font-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* ── material: paper, not glass ───────────────────────────────────────────
+     A translucent white fill is invisible on a white ground, so the material
+     here is built the opposite way to mono.css: an almost-flat fill, a white
+     rim catching the top edge, and a wide low shadow doing all the lifting.
+     Same three tokens, opposite reading. */
+  --surface-fill: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%);
+  --rim: inset 0 1px 0 #ffffff, inset 0 0 0 1px rgba(15, 15, 15, 0.04);
+  --shadow: 0 18px 44px -28px rgba(15, 15, 15, 0.28), 0 2px 6px -3px rgba(15, 15, 15, 0.06);
+
+  /* The hover event. With no colour available, a monochrome page signals
+     "live" by tightening the ring, not by warming the fill. */
+  --glow: 0 0 0 4px rgba(15, 15, 15, 0.08);
+
+  /* Page texture. The reference's ground is a soft vertical wash, not a flat
+     fill — that is what stops near-white reading as "unstyled". Grain stays
+     OFF: on a light ground it reads as JPEG noise rather than as paper. */
+  --field: radial-gradient(120% 75% at 50% -12%, rgba(15, 15, 15, 0.05) 0%, transparent 60%);
+  --grain: none;
+  --grain-opacity: 0;
+
+  /* Every product photo falls into line without re-exporting one file. This is
+     the token that makes the shop actually black and white rather than a
+     monochrome frame around colour photographs. */
+  --img-filter: grayscale(1) contrast(1.04);
+  --img-filter-hover: grayscale(1) contrast(1.12);
+
+  /* ── motion ─────────────────────────────────────────────────────────────
+     Slower and longer than the dark skins. The reference runs Lenis-damped
+     scroll, and the feel that produces is unhurried — a 240ms shop inside a
+     700ms page reads as two different sites. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 200ms;
+  --dur-2: 340ms;
+  --dur-3: 720ms;
+
+  /* ══ CLONE GEOMETRY ══════════════════════════════════════════════════════
+     Below this line are NOT engine tokens. The engine never reads them and the
+     design-contract test does not know about them; they are the measured
+     structure of the reference, kept in the skin so the page and the skin
+     cannot drift apart. Every number comes from _scrape/butter-video/.
+
+     THE GRID: 1440 viewport, 1308 container, 12 columns of 86.0625px with a
+     25px gutter. Check it — 12 x 86.0625 + 11 x 25 = 1307.75. Every repeated
+     width on that page is a span of this grid: 308px is 3 columns (68 uses,
+     their card), 641px is 6 (51 uses, their half), 530px is 5. */
+  --shell: 1308px;
+  --gutter: 25px;
+  --col: calc((var(--shell) - 11 * var(--gutter)) / 12);
+  --margin: 66px;              /* (1440 - 1308) / 2 */
+
+  /* THE BLEED — the number the first attempt got wrong by a factor of two.
+     Their media box starts at x=786 and is 1308 wide, so its right edge lands
+     at 2094px on a 1440px viewport: it leaves the screen by 654px, some 45% of
+     the viewport width. Measured from the column-7 start (x=733) that is a
+     1361px box, or 94.5vw. Held in vw so it scales the way their display type
+     does rather than snapping at a breakpoint. A timid bleed is the single
+     thing that makes a clone of this layout read as merely "similar". */
+  --bleed: 94.5vw;
+
+  /* Vertical air. The reference page is 14,865px tall and that IS the design,
+     not an accident — sections breathe at 160-200px and empty thirds are
+     allowed to stay empty. */
+  --air: clamp(88px, 12vw, 176px);
+  --air-lg: clamp(120px, 16vw, 240px);
+
+  /* TYPE SCALE. The finding that matters most: display sizes are viewport-
+     locked and body is not. 107.568/1440 = 7.47vw. 60.4 = 4.19vw.
+     45.45 = 3.16vw. 24.48 = 1.70vw. Meanwhile 18px body holds still across
+     581 elements. That is why their headings feel enormous on a laptop and
+     still work on a phone, and why a fixed-px heading never matches the feel
+     however carefully the px is chosen. */
+  --t-hero: clamp(44px, 7.47vw, 128px);
+  --t-h2: clamp(32px, 4.19vw, 72px);
+  --t-h3: clamp(26px, 3.16vw, 54px);
+  --t-lead: clamp(19px, 1.7vw, 29px);
+  --t-body: 18px;
+  --t-body-lh: 27px;           /* exactly 1.5 */
+  --t-eyebrow: 13.5px;
+
+  /* The tracking opposition — most of the editorial feel lives here. Display
+     pulls tight and negative; the eyebrow pushes wide and positive. */
+  --track-display: -0.03em;
+  --track-eyebrow: 0.16em;
+
+  /* Ink panels punched into the light page, plus the reference's decorative
+     grey kept at its own value for use anywhere that is not body copy. */
+  --ink-panel: #1e1e1e;
+  --ink-panel-deep: #151515;
+  --panel: #ededed;
+  --ornament: #b6b6b6;
+
+  /* THE GROUND WASH. Deliberately a narrow range. Running --bg (#fafafa) all
+     the way to --surface-2 (#ededed) is only thirteen steps of 8-bit value,
+     and stretched down a 16,000px page each step is a band over 1,200px tall
+     whose edges show as hard horizontal lines straight across the layout.
+     Three close stops give the same "not flat, not unstyled" read with no step
+     wide enough for an eye to find. Every value R=G=B. */
+  --wash: linear-gradient(180deg, #fafafa 0%, #f6f6f6 55%, #f3f3f3 100%);
+}
